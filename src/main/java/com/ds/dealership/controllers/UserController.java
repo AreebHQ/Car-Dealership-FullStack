@@ -21,14 +21,6 @@ public class UserController {
     RoleRepository roles;
 
 
-   /* @GetMapping("/")
-    public String index(Model model) {
-       // model.addAttribute("stores", users.findAll());
-        addUser();
-        return "index";
-    }
-*/
-
     @GetMapping("/users")
     public List<User> allUsers() {
         List<User> allUsers = users.findAll();
