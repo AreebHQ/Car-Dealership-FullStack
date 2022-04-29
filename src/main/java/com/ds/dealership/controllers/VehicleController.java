@@ -40,11 +40,6 @@ public class VehicleController {
     }
 
 
-    @GetMapping("/Inventory/new")
-    public List<Vehicle> newVehicles() {
 
-        List<Vehicle> allNew = vehicles.findAllNew();
-        return  allNew;
-    }
 
 }

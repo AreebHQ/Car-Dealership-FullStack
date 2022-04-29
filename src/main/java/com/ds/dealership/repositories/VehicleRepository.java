@@ -32,4 +32,18 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
     List<Vehicle> findBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice);
 
 
+    @Query(value = "SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join" +
+            " model md on md.model_id = v.model WHERE v.mileage > 0 " +
+            "AND year BETWEEN ?1 AND ?2 AND sale_price BETWEEN ?3 AND ?4 AND m.name = ?5  OR md.name =  ?6", nativeQuery = true)
+    List<Vehicle> findUsedBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice, String make, String model);
+
+
+    @Query(value = "SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join" +
+            " model md on md.model_id = v.model WHERE v.mileage > 0 " +
+            "AND year BETWEEN ?1 AND ?2 AND sale_price BETWEEN ?3 AND ?4", nativeQuery = true)
+    List<Vehicle> findUsedBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice);
+
+
+    @Query(value = "SELECT * FROM vehicle WHERE mileage > 0", nativeQuery = true)
+    List<Vehicle> findAllUsed();
 }

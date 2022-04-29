@@ -2,7 +2,7 @@ $(document).ready(function () {
     
 	loadNavigationBar();
 	loadNewInventory();
-	//loadSearch();
+
 
   
 });
@@ -273,7 +273,7 @@ function loadNavigationBar() {
 			  '  <a class="nav-link" href="./newInventory.html">New Inventory</a>'+
 			 ' </li>'+
 			 ' <li class="nav-item">'+
-			 '   <a class="nav-link" href="#">Used Inventory</a>'+
+			 '   <a class="nav-link" href="./usedInventory.html">Used Inventory</a>'+
 			 ' </li>'+
 			  ' <li class="nav-item">'+
 			 '   <a class="nav-link" href="#">Specials</a>'+
