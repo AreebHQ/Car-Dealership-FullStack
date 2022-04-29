@@ -270,7 +270,7 @@ function loadNavigationBar() {
 			 '   <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>'+
 			'  </li>'+
 			'  <li class="nav-item">'+
-			  '  <a class="nav-link" href="./checking.html">New Inventory</a>'+
+			  '  <a class="nav-link" href="./newInventory.html">New Inventory</a>'+
 			 ' </li>'+
 			 ' <li class="nav-item">'+
 			 '   <a class="nav-link" href="#">Used Inventory</a>'+
