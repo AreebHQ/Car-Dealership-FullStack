@@ -1,7 +1,7 @@
 $(document).ready(function () {
     
 	loadNavigationBar();
-	loadNewInventory();
+	loadUsedInventory();
 	
 
 
@@ -90,7 +90,7 @@ function showVehicleDetail(vehicleId) {
 
 
 
-function loadNewInventory() {
+function loadUsedInventory() {
 
      var searchCardTemplate = $('#searchResultTemplate');
 	 
@@ -262,7 +262,7 @@ function loadNavigationBar() {
 			 '   <a class="nav-link" href="./usedInventory.html">Used Inventory </a>'+
 			 ' </li>'+
 			  ' <li class="nav-item">'+
-			 '   <a class="nav-link" href="#">Specials</a>'+
+			 '   <a class="nav-link" href="./specials.html">Specials</a>'+
 			 ' </li>'+
 			 ' <li class="nav-item">'+
 			 '   <a class="nav-link disabled">Contact</a>'+

@@ -36,7 +36,6 @@ public class InventoryController {
     @GetMapping("/Inventory/details/{id}")
     public Optional<Vehicle> vehicleDetail(@PathVariable("id") Integer id) {
 
-        System.out.println("called vehicleDetail: " + id);
         Optional<Vehicle> vehicle = vehicles.findById(id);
 
         return  vehicle;
@@ -60,8 +59,6 @@ public class InventoryController {
         }
 
 
-        System.out.println(minPrice +" "+ maxPrice +" "+ minYear +" "+ maxYear+ " "+ carMake + " " +carModel);
-
         if(minYear.equals("Min"))
         {
             minYear = "0";
@@ -81,21 +78,12 @@ public class InventoryController {
 
         }
 
-        System.out.println("After Validation");
-        System.out.println(minPrice +" "+ maxPrice +" "+ minYear +" "+ maxYear+ " "+searchBar);
-
 
         if(searchBar.isEmpty() || searchBar.isBlank())
         {
             searchResult = vehicles.findBySearchInput(minYear,maxYear,minPrice,maxPrice);
         } else {
             searchResult = vehicles.findBySearchInput(minYear,maxYear,minPrice,maxPrice,carMake,carModel);
-        }
-
-
-        for(Vehicle vehicle : searchResult)
-        {
-            System.out.println(vehicle.getMake().getName() + " " + vehicle.getYear() + " " +  vehicle.getSalePrice());
         }
 
      return  searchResult;
@@ -121,8 +109,6 @@ public class InventoryController {
         }
 
 
-        System.out.println(minPrice +" "+ maxPrice +" "+ minYear +" "+ maxYear+ " "+ carMake + " " +carModel);
-
         if(minYear.equals("Min"))
         {
             minYear = "0";
@@ -142,21 +128,12 @@ public class InventoryController {
 
         }
 
-        System.out.println("After Validation");
-        System.out.println(minPrice +" "+ maxPrice +" "+ minYear +" "+ maxYear+ " "+searchBar);
-
 
         if(searchBar.isEmpty() || searchBar.isBlank())
         {
             searchResult = vehicles.findUsedBySearchInput(minYear,maxYear,minPrice,maxPrice);
         } else {
             searchResult = vehicles.findUsedBySearchInput(minYear,maxYear,minPrice,maxPrice,carMake,carModel);
-        }
-
-
-        for(Vehicle vehicle : searchResult)
-        {
-            System.out.println(vehicle.getMake().getName() + " " + vehicle.getYear() + " " +  vehicle.getSalePrice());
         }
 
         return  searchResult;
