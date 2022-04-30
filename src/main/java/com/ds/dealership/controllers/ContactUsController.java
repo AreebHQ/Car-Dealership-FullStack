@@ -1,9 +1,6 @@
 package com.ds.dealership.controllers;
 
 import com.ds.dealership.entities.Message;
-import com.ds.dealership.entities.Specials;
-import com.ds.dealership.entities.Vehicle;
-import com.ds.dealership.model.SearchNewInventory;
 import com.ds.dealership.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -25,7 +22,6 @@ public class ContactUsController {
     @PostMapping("/contactus/message")
     private String getUsed(@RequestBody Message message, HttpServletRequest request, final ModelMap model) {
 
-        System.out.println(message.getMessageBody());
         messages.save(message);
         return  "success";
     }

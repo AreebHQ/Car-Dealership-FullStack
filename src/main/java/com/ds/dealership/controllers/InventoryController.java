@@ -33,6 +33,14 @@ public class InventoryController {
     }
 
 
+    @GetMapping("/sales/index")
+    public List<Vehicle> allVehicles() {
+
+        List<Vehicle> allVehicles = vehicles.findAll();
+        return  allVehicles;
+    }
+
+
     @GetMapping("/Inventory/details/{id}")
     public Optional<Vehicle> vehicleDetail(@PathVariable("id") Integer id) {
 

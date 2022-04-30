@@ -340,6 +340,9 @@ function loadNavigationBar() {
 			 	 ' <li class="nav-item">'+
 			 '   <a class="nav-link" href="./contactUs.html">Contact</a>'+
 			'  </li>'+
+			 	 ' <li class="nav-item">'+
+			 '   <a class="nav-link" href="./sales.html">Sales</a>'+
+			'  </li>'+
 			 ' <li class="nav-item">'+
 			 '   <a class="nav-link disabled">Contact</a>'+
 			'  </li>'+
