@@ -2,7 +2,7 @@ $(document).ready(function () {
     
 	loadNavigationBar();
 
-	addMessage();
+
 
 
 });
@@ -42,33 +42,35 @@ function loadNavigationBar() {
 
 
 function addMessage() {
-    $('#addMessage').click(function (event) {
 		
-	
 		
+		 var name = document.getElementById("name").value;
+		 var email = document.getElementById("email").value;
+		 var phone = document.getElementById("phone").value;
+		 var subject =  document.getElementById("subject").value;
+		 var messageBody  = document.getElementById("message").value;
+			console.log('name: ' + name );
+			console.log('subject: ' + subject );
+			console.log('phone: ' + phone );
+	   
+		   var input = {"name": name,
+						"email": email,
+						"phone": phone,
+						"subject": subject,
+						"messageBody": messageBody }
+		
+		
+
         $.ajax({
            type: 'POST',
-           url: 'http://contactus/message',
-           data: JSON.stringify({
-                name: $('#name').val(),
-                email: $('#email').val(),
-                phone: $('#phone').val(),
-                subject: $('#subject').val(),
-                messageBody: $('#message').val()
-           }),
-           headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json'
-           },
-           'dataType': 'json',
+           url: 'http://localhost:8080/contactus/message',
+		   contentType : 'application/json; charset=utf-8',
+		   dataType: 'json',
+           data: JSON.stringify(input),
+          
            success: function() {
-               //$('#errorMessages').empty();
-               $('#addFirstName').val('');
-               $('#addLastName').val('');
-               $('#addCompany').val('');
-               $('#addPhone').val('');
-               $('#addEmail').val('');
-             
+        
+            location.reload();
            },
            error: function () {
                $('#errorMessages')
@@ -77,7 +79,7 @@ function addMessage() {
                 .text('Error calling web service. Please try again later.')); 
            }
         })
-    });
+     
 }
 
 

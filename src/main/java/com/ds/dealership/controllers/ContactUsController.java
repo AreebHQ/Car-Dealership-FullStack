@@ -25,6 +25,7 @@ public class ContactUsController {
     @PostMapping("/contactus/message")
     private String getUsed(@RequestBody Message message, HttpServletRequest request, final ModelMap model) {
 
+        System.out.println(message.getMessageBody());
         messages.save(message);
         return  "success";
     }
