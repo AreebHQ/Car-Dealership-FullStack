@@ -5,16 +5,12 @@ import com.ds.dealership.entities.Vehicle;
 import com.ds.dealership.model.SearchNewInventory;
 import com.ds.dealership.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Provider;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class InventoryController {
@@ -34,6 +30,16 @@ public class InventoryController {
 
         List<Vehicle> allUsed = vehicles.findAllUsed();
         return  allUsed;
+    }
+
+
+    @GetMapping("/Inventory/details/{id}")
+    public Optional<Vehicle> vehicleDetail(@PathVariable("id") Integer id) {
+
+        System.out.println("called vehicleDetail: " + id);
+        Optional<Vehicle> vehicle = vehicles.findById(id);
+
+        return  vehicle;
     }
 
     @RequestMapping(value="/Inventory/searchNewInventory")

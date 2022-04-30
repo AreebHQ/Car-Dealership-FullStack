@@ -66,52 +66,80 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-function showVehicleDetail() {
-    //$('#errorMessages').empty();
-    
-   /* $.ajax({
+function showVehicleDetail(vehicleId) {
+	
+	  $('#errorMessages').empty();
+      $('#searchResultTemplate').hide(); //hide search cards
+	  $('#newVehiclesHeader').hide();
+	
+     var detailCardTemplate = $('#vehicleDetailTemplate');
+	 
+	  $.ajax({
         type: 'GET',
-        url: 'http://contactlist.us-east-1.elasticbeanstalk.com/contact/' + contactId,
-        success: function(data, status) {
-            $('#editFirstName').val(data.firstName);
-            $('#editLastName').val(data.lastName);
-            $('#editCompany').val(data.company);
-            $('#editPhone').val(data.phone);
-            $('#editEmail').val(data.email);
-            $('#editContactId').val(data.contactId);
+        url:'http://localhost:8080/Inventory/details/'+vehicleId,
+		
+        success: function(featuredVehicle, status) {
+				
+                var year =  featuredVehicle.year;
+                var make =  featuredVehicle.make.name;
+				var model = featuredVehicle.model.name;
+				var salePrice =  '$'+featuredVehicle.salePrice;
+				var MRSP =  '$'+featuredVehicle.mrspPrice;
+                var imageLink = featuredVehicle.image;	
+				var body =  featuredVehicle.body.name;
+			    var transmission =  featuredVehicle.transmission;
+				var color =  featuredVehicle.bodyColor.name;
+				var interior =  featuredVehicle.interiorColor.name;
+				var mileage =  featuredVehicle.mileage;
+				var vin =  featuredVehicle.vinNumber;
+				var description = featuredVehicle.description;
+				
+				if(mileage == 0) {mileage = "New";}
+   
+				var searchDetail = '<div class="row">'+
+			   '<h3 class="col-12">Vehicle Detail</h3>'+
+			  ' </div> '+
+			   ' <hr class="rounded">'+
+				'<div class="card"> <div class="row"> <div class="col-3"> <br>'+
+					  '<h5 class="card-title d-flex justify-content-center">'+ year +' '+make+' '+model+'</h5>'+
+					  '<img class="card-img-top" src="'+imageLink+'" alt="Card image cap"></img> </div>'+
+				 ' <div class="col-3"> <br><br><br>'+
+				'<div class="d-flex justify-content-center ">'+
+					'<h6 class="card-title"> <b> Body Style: </b> '+body+' <br><br> '+
+			 	'<b> Trans: </b>  '+transmission+'<br><br>'+
+					    '<b>  Color:  </b> '+color+'  </h6> </div>'+
+			 '</div>		  '+
+					 ' <div class="col-3"> <br><br><br>'+
+					'<div class="d-flex justify-content-center ">'+
+					'<h6 class="card-title"> <b> Interior: </b> '+interior+'  <br><br> '+
+				 '	<b>   Mileage: </b>  '+mileage+' <br><br>'+
+				  '  <b>  VIN#:  </b> '+vin+' </h6> </div>'+
+				 ' </div>	'+	
+				' <div class="col-3">		'+
+						'<br><br><br>'+
+						'<h5 class="card-title text-right"><b> Sale Price: </b> '+salePrice+' <br><br> <b> MRSP: </b>  '+MRSP+'</h5>'+
+						'</div>'+
+			'  <div class="row"> <div class="col-3"></div>'+
+					'<div class="col-9"><b> Description: &nbsp;&nbsp;</b>'+description+'  </div>'+
+				'<br><br> </div>'+
+				 ' <div class="col-12">'+
+				 ' <a href="#" id="contactUs"  class="btn btn-secondary float-right align-self-baseline" type="submit">Contact Us</a>'+	  
+					'</div></div></div> ';
+				
+				detailCardTemplate.append(searchDetail);
+	            $('#vehicleDetailTemplate').show();
             
         },
         error: function() {
-            $('#errorMessages')
-            .append($('<li>')
-            .attr({class: 'list-group-item list-group-item-danger'})
-            .text('Error calling web service. Please try again later.')); 
+             $('#errorMessages')
+                .append($('<li>')
+                .attr({class: 'list-group-item list-group-item-danger'})
+                .text('Error calling web service. Please try again later.'));
         }
-    }) */
-    
-	   var elmId = $("#checkingID").attr("value");
-        alert(elmId);
-	
-    $('#searchResultTemplate').hide();
-	
-}
-
-
-function hideVehicleDetail() {
-   /* $('#errorMessages').empty();
-    
-    $('#editFirstName').val('');
-    $('#editLastName').val('');
-    $('#editCompany').val('');
-    $('#editPhone').val('');
-    $('#editEmail').val('');*/
-	
-	   var elmId = $("#checkingID").attr("id");
-        alert(elmId);
-
-    $('#searchResultTemplate').show();
-	
+    })
+				
    
+	
 }
 
 
@@ -132,8 +160,8 @@ function loadNewInventory() {
         success: function(allFeaturedVehicles) {
         
 		$.each(allFeaturedVehicles, function(index, featuredVehicle){
-			
-               var year =  featuredVehicle.year;
+				var vehicleId = featuredVehicle.id;
+                var year =  featuredVehicle.year;
                 var make =  featuredVehicle.make.name;
 				var model = featuredVehicle.model.name;
 				var salePrice =  '$'+featuredVehicle.salePrice;
@@ -168,7 +196,7 @@ function loadNewInventory() {
 				 ' <div class="col-3">'+		
 						'<br><br><br>'+
 						'<h5 class="card-title text-right"><b> Sale Price: </b> '+salePrice+' <br><br> <b> MRSP: </b>  '+MRSP+'</h5>'+
-						'<a href="#" onclick="showVehicleDetail()" value="'+index+'" id="checkingID" class="btn btn-primary float-right align-self-baseline col-6" type="submit">Details</a></div>'+	  
+						'<a href="#" onclick="showVehicleDetail(' + vehicleId + ')" class="btn btn-secondary float-right align-self-baseline col-6" type="submit">Details</a></div>'+	  
 			'</div> </div>  ';
 	  
 				
@@ -224,7 +252,7 @@ function loadSearch() {
 			  
 			  $.each(response, function(index, featuredVehicle){
 			
-				
+				var vehicleId = featuredVehicle.id;
                var year =  featuredVehicle.year;
                 var make =  featuredVehicle.make.name;
 				var model = featuredVehicle.model.name;
@@ -237,6 +265,7 @@ function loadSearch() {
 				var interior =  featuredVehicle.interiorColor.name;
 				var mileage =  featuredVehicle.mileage;
 				var vin =  featuredVehicle.vinNumber;
+				
 				
 				if(mileage == 0) {mileage = "New";}
 			
@@ -260,11 +289,14 @@ function loadSearch() {
 				 ' <div class="col-3">'+		
 						'<br><br><br>'+
 						'<h5 class="card-title text-right"><b> Sale Price: </b> '+salePrice+' <br><br> <b> MRSP: </b>  '+MRSP+'</h5>'+
-						'<a href="#"  onclick="showVehicleDetail()"  value="'+index+'" id="checkingID"  class="btn btn-primary float-right align-self-baseline col-6" type="submit">Details</a></div>'+	  
+						'<a href="#"  onclick="showVehicleDetail(' + vehicleId + ')"  class="btn btn-primary float-right align-self-baseline col-6" type="submit">Details</a></div>'+	  
 			'</div> </div>  ';
 	  
 				
 				searchCardTemplate.append(searchCard);
+				
+				
+				
 				
 				
 	
@@ -278,6 +310,11 @@ function loadSearch() {
         }
         })
     }
+
+
+
+
+
 
 
 
