@@ -36,7 +36,7 @@ public class InventoryController {
     @GetMapping("/sales/index")
     public List<Vehicle> allVehicles() {
 
-        List<Vehicle> allVehicles = vehicles.findAll();
+        List<Vehicle> allVehicles = vehicles.findAllAvailable();
         return  allVehicles;
     }
 
