@@ -1,221 +1,134 @@
 $(document).ready(function () {
   
-	loadContacts();
-	  addContact();
-	  updateContact();
+	showAddVehicleForm();
 });
 
 
-function checkAndDisplayValidationErrors(input) {
-    $('#errorMessages').empty();
-    
-    var errorMessages = [];
-    
-    input.each(function() {
-        if (!this.validity.valid) {
-            var errorField = $('label[for=' + this.id + ']').text();
-            errorMessages.push(errorField + ' ' + this.validationMessage);
-        }  
-    });
-    
-    if (errorMessages.length > 0){
-        $.each(errorMessages,function(index,message) {
-            $('#errorMessages').append($('<li>').attr({class: 'list-group-item list-group-item-danger'}).text(message));
-        });
-        // return true, indicating that there were errors
-        return true;
-    } else {
-        // return false, indicating that there were no errors
-        return false;
-    }
-}
 
-
-function deleteContact(contactId) {
-    $.ajax({
-        type: 'DELETE',
-        url: 'http://contactlist.us-east-1.elasticbeanstalk.com/contact/' + contactId,
-        success: function() {
-            loadContacts();
-        }
-    });
-}
-
-
-function updateContact(contactId) {
-    $('#updateButton').click(function(event) {
-		
-		    var haveValidationErrors = checkAndDisplayValidationErrors($('#editForm').find('input'));
-        
-        if(haveValidationErrors) {
-            return false;
-        }
-		
-        $.ajax({
-            type: 'PUT',
-            url: 'http://contactlist.us-east-1.elasticbeanstalk.com/contact/' + $('#editContactId').val(),
-            data: JSON.stringify({
-                contactId: $('#editContactId').val(),
-                firstName: $('#editFirstName').val(),
-                lastName: $('#editLastName').val(),
-                company: $('#editCompany').val(),
-                phone: $('#editPhone').val(),
-                email: $('#editEmail').val()
-            }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            'dataType': 'json',
-            'success': function() {
-                $('#errorMessage').empty();
-                hideEditForm();
-                loadContacts();
-            },
-            'error': function() {
-                $('#errorMessages')
-                .append($('<li>')
-                .attr({class: 'list-group-item list-group-item-danger'})
-                .text('Error calling web service. Please try again later.')); 
-            }
-        })
-    })
-};
-
-function showEditForm(contactId) {
-    $('#errorMessages').empty();
-    
-    $.ajax({
+function showAddVehicleForm()
+{
+	var makeFormTemplate = $('#makeTemplate');
+	var makeTemplate = '<select class="form-control" id="make" name="make">';
+	
+	 $.ajax({
         type: 'GET',
-        url: 'http://contactlist.us-east-1.elasticbeanstalk.com/contact/' + contactId,
-        success: function(data, status) {
-            $('#editFirstName').val(data.firstName);
-            $('#editLastName').val(data.lastName);
-            $('#editCompany').val(data.company);
-            $('#editPhone').val(data.phone);
-            $('#editEmail').val(data.email);
-            $('#editContactId').val(data.contactId);
-            
+        url:'http://localhost:8080/vehicleMake',		
+        success: function(allVehicleMake) {        
+		$.each(allVehicleMake, function(index, vehicleMake){	
+			   makeTemplate+='<option value="'+vehicleMake.id+'">'+vehicleMake.name+'</option>';
+            })		
+			 makeFormTemplate.append(makeTemplate);			
         },
         error: function() {
-            $('#errorMessages')
-            .append($('<li>')
-            .attr({class: 'list-group-item list-group-item-danger'})
-            .text('Error calling web service. Please try again later.')); 
+
+        }
+    })				
+	//==========================================================
+	
+	var modelFormTemplate = $('#modelTemplate');
+	var modelTemplate = '<select class="form-control" id="model" name="model">';	
+	 $.ajax({
+        type: 'GET',
+        url:'http://localhost:8080/vehicleModel',		
+        success: function(allVehicleModel) {       
+		$.each(allVehicleModel, function(index, vehicleModel){	
+			   modelTemplate+='<option value="'+vehicleModel.id+'">'+vehicleModel.name+'</option>';
+            })	
+			 modelFormTemplate.append(modelTemplate);		
+        },
+        error: function() {
         }
     })
-    
-    $('#contactTableDiv').hide();
-    $('#editFormDiv').show();
+	//===========================================================
+	
+	var bodyFormTemplate = $('#bodyTemplate');
+	var bodyTemplate = '<select class="form-control" id="body" name="body">';	
+	 $.ajax({
+        type: 'GET',
+        url:'http://localhost:8080/vehicleBody',		
+        success: function(allVehicleBody) {       
+		$.each(allVehicleBody, function(index, vehicleBody){	
+			   bodyTemplate+='<option value="'+vehicleBody.id+'">'+vehicleBody.name+'</option>';
+            })	
+			 bodyFormTemplate.append(bodyTemplate);		
+        },
+        error: function() {
+        }
+    })
+	//===========================================================
+		
+	var colorFormTemplate = $('#colorTemplate');
+	var colorTemplate = '<select class="form-control" id="color" name="color">';	
+	 $.ajax({
+        type: 'GET',
+        url:'http://localhost:8080/vehicleColors',		
+        success: function(allVehicleColors) {       
+		$.each(allVehicleColors, function(index, vehicleColor){	
+			   colorTemplate+='<option value="'+vehicleColor.id+'">'+vehicleColor.name+'</option>';
+            })	
+			 colorFormTemplate.append(colorTemplate);		
+        },
+        error: function() {
+        }
+    })
+	//===========================================================
+	
+	var interiorFormTemplate = $('#interiorTemplate');
+	var interiorTemplate = '<select class="form-control" id="interior" name="interior">';	
+	 $.ajax({
+        type: 'GET',
+        url:'http://localhost:8080/vehicleColors',		
+        success: function(allVehicleColors) {       
+		$.each(allVehicleColors, function(index, vehicleColor){	
+			   interiorTemplate+='<option value="'+vehicleColor.id+'">'+vehicleColor.name+'</option>';
+            })	
+			 interiorFormTemplate.append(interiorTemplate);		
+        },
+        error: function() {
+        }
+    })
+	//===========================================================
+	
+	
+	
 }
 
-
-function hideEditForm() {
-    $('#errorMessages').empty();
-    
-    $('#editFirstName').val('');
-    $('#editLastName').val('');
-    $('#editCompany').val('');
-    $('#editPhone').val('');
-    $('#editEmail').val('');
-
-    $('#contactTableDiv').show();
-    $('#editFormDiv').hide();
-}
-
-
-function clearContactTable() {
-    $('#contentRows').empty();
-}
-
-
-
-
-
-
-
-
-
-
-
-function loadContacts() {
-	clearContactTable();
-     var contentRows = $('#contentRows');
+function check()
+{
+	
+	var make = document.getElementById("make").value;
+	var model = document.getElementById("model").value;
+	var type = document.getElementById("type").value;
+	var body = document.getElementById("body").value;
+	var transmission = document.getElementById("transmission").value;
+	var color = document.getElementById("color").value;
+	var interior = document.getElementById("interior").value;
+	alert(make+''+model+''+type+''+body+''+transmission+''+color+''+interior);
+	 
 	 
 	  $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/users',
-		
-        success: function(allUsers) {
-		
-		
-         $.each(allUsers, function(index, user){
-			 
-				var name =  user.firstName;
-                var company =  user.lastName;
-				var contactId =  user.id;
-                
-                
-                var row = '<tr>';
-                    row += '<td>' + name + '</td>';
-                    row += '<td>' + company + '</td>';
-                    row += '<td><button type="button" class="btn btn-info" onclick="showEditForm(' + contactId + ')">Edit</button></td>'; 
-					row += '<td><button type="button" class="btn btn-danger" onclick="deleteContact(' + contactId + ')">Delete</button></td>';
-                    row += '</tr>';
-                
-                contentRows.append(row);
-	
-            })
+        url:'http://localhost:8080/Inventory/details/3',		
+        success: function(vehicle, status) {    
+			
+			if(vehicle.type=='New')
+			{$("#type").val(1);} else {$("#type").val(2);}
+			
+			$("#year").val(vehicle.year);
+			$("#make").val(vehicle.make.id);
+			$("#model").val(vehicle.model.id);
+			$("#body").val(vehicle.body.id);
+			$("#transmission").val(vehicle.transmission);
+			$("#color").val(vehicle.bodyColor.id);
+			$("#interior").val(vehicle.interiorColor.id);
+			$("#mileage").val(vehicle.mileage);
+			$("#vin").val(vehicle.vinNumber);
+			$("#salePrice").val(vehicle.salePrice);
+			$("#mrsp").val(vehicle.mrspPrice);
+			$("#description").val(vehicle.description);
         },
         error: function() {
-             $('#errorMessages')
-                .append($('<li>')
-                .attr({class: 'list-group-item list-group-item-danger'})
-                .text('Error calling web service. Please try again later.'));
         }
     })
 }
 
-function addContact() {
-    $('#addButton').click(function (event) {
-		
-		  var haveValidationErrors = checkAndDisplayValidationErrors($('#addForm').find('input'));
-        
-        if(haveValidationErrors) {
-            return false;
-        }
-		
-		
-        $.ajax({
-           type: 'POST',
-           url: 'http://contactlist.us-east-1.elasticbeanstalk.com/contact',
-           data: JSON.stringify({
-                firstName: $('#addFirstName').val(),
-                lastName: $('#addLastName').val(),
-                company: $('#addCompany').val(),
-                phone: $('#addPhone').val(),
-                email: $('#addEmail').val()
-           }),
-           headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json'
-           },
-           'dataType': 'json',
-           success: function() {
-               $('#errorMessages').empty();
-               $('#addFirstName').val('');
-               $('#addLastName').val('');
-               $('#addCompany').val('');
-               $('#addPhone').val('');
-               $('#addEmail').val('');
-               loadContacts();
-           },
-           error: function () {
-               $('#errorMessages')
-                .append($('<li>')
-                .attr({class: 'list-group-item list-group-item-danger'})
-                .text('Error calling web service. Please try again later.')); 
-           }
-        })
-    });
-}

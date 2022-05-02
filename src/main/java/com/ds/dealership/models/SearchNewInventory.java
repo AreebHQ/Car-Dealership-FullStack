@@ -1,4 +1,4 @@
-package com.ds.dealership.model;
+package com.ds.dealership.models;
 
 public class SearchNewInventory {
     private String minYear;

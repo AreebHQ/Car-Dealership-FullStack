@@ -2,7 +2,7 @@ package com.ds.dealership.controllers;
 
 
 import com.ds.dealership.entities.Vehicle;
-import com.ds.dealership.model.SearchNewInventory;
+import com.ds.dealership.models.SearchNewInventory;
 import com.ds.dealership.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -89,9 +89,9 @@ public class InventoryController {
 
         if(searchBar.isEmpty() || searchBar.isBlank())
         {
-            searchResult = vehicles.findBySearchInput(minYear,maxYear,minPrice,maxPrice);
+            searchResult = vehicles.findNewBySearchInput(minYear,maxYear,minPrice,maxPrice);
         } else {
-            searchResult = vehicles.findBySearchInput(minYear,maxYear,minPrice,maxPrice,carMake,carModel);
+            searchResult = vehicles.findNewBySearchInput(minYear,maxYear,minPrice,maxPrice,carMake,carModel);
         }
 
      return  searchResult;
@@ -142,6 +142,56 @@ public class InventoryController {
             searchResult = vehicles.findUsedBySearchInput(minYear,maxYear,minPrice,maxPrice);
         } else {
             searchResult = vehicles.findUsedBySearchInput(minYear,maxYear,minPrice,maxPrice,carMake,carModel);
+        }
+
+        return  searchResult;
+
+    }
+
+
+    @RequestMapping(value="/admin/vehicles")
+    private List<Vehicle> getAllAvailableVehicles(@RequestBody SearchNewInventory search, HttpServletRequest request, final ModelMap model) {
+
+        List<Vehicle> searchResult = null;
+        String minYear = search.getMinYear();
+        String maxYear = search.getMaxYear();
+        String minPrice = search.getMinPrice();
+        String maxPrice = search.getMaxPrice();
+        String searchBar = search.getSearchInput();
+        String carMake = searchBar;
+        String carModel = "";
+        if(searchBar.split("-").length > 1)
+        {String []searchInput = searchBar.split("-");
+            carMake = searchInput[0];
+            carModel = searchInput[1];
+        }
+
+
+        if(minYear.equals("Min"))
+        {
+            minYear = "0";
+        }
+        if(minPrice.equals("Min"))
+        {
+            minPrice = "0";
+        }
+
+        if(maxYear.equals("2020+") || maxYear.equals("Max"))
+        {
+            maxYear = "9999";
+        }
+        if(maxPrice.equals("25+") || maxPrice.equals("Max"))
+        {
+            maxPrice= "999999";
+
+        }
+
+
+        if(searchBar.isEmpty() || searchBar.isBlank())
+        {
+            searchResult = vehicles.findAvailableBySearchInput(minYear,maxYear,minPrice,maxPrice);
+        } else {
+            searchResult = vehicles.findAvailableBySearchInput(minYear,maxYear,minPrice,maxPrice,carMake,carModel);
         }
 
         return  searchResult;

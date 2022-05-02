@@ -14,6 +14,9 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
     @Query(value = "SELECT * FROM Vehicle WHERE sold = false", nativeQuery = true)
     List<Vehicle> findAllAvailable();
 
+    @Query(value = "SELECT * FROM Vehicle WHERE sold = false AND featured = true", nativeQuery = true)
+    List<Vehicle> findAllFeatured();
+
     @Query(value = "SELECT DISTINCT sale_price FROM Vehicle", nativeQuery = true)
     List<String> findAllPrice();
 
@@ -26,13 +29,25 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
     @Query(value = "SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join" +
             " model md on md.model_id = v.model WHERE v.mileage = 0 AND v.sold = false " +
             "AND year BETWEEN ?1 AND ?2 AND sale_price BETWEEN ?3 AND ?4 AND m.name = ?5  OR md.name =  ?6", nativeQuery = true)
-    List<Vehicle> findBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice, String make, String model);
+    List<Vehicle> findNewBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice, String make, String model);
 
 
     @Query(value = "SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join" +
             " model md on md.model_id = v.model WHERE v.mileage = 0 AND v.sold = false " +
             "AND year BETWEEN ?1 AND ?2 AND sale_price BETWEEN ?3 AND ?4", nativeQuery = true)
-    List<Vehicle> findBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice);
+    List<Vehicle> findNewBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice);
+
+
+    @Query(value = "SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join" +
+            " model md on md.model_id = v.model WHERE v.sold = false " +
+            "AND year BETWEEN ?1 AND ?2 AND sale_price BETWEEN ?3 AND ?4 AND m.name = ?5  OR md.name =  ?6", nativeQuery = true)
+    List<Vehicle> findAvailableBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice, String make, String model);
+
+
+    @Query(value = "SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join" +
+            " model md on md.model_id = v.model WHERE v.sold = false " +
+            "AND year BETWEEN ?1 AND ?2 AND sale_price BETWEEN ?3 AND ?4", nativeQuery = true)
+    List<Vehicle> findAvailableBySearchInput(String minYear, String maxYear, String minPrice, String maxPrice);
 
 
     @Query(value = "SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join" +
