@@ -2,7 +2,7 @@ package com.ds.dealership.controllers;
 
 
 import com.ds.dealership.entities.Vehicle;
-import com.ds.dealership.models.SearchNewInventory;
+import com.ds.dealership.models.SearchNewInventoryModel;
 import com.ds.dealership.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -50,7 +50,7 @@ public class InventoryController {
     }
 
     @RequestMapping(value="/Inventory/searchNewInventory")
-    private List<Vehicle> getFormData(@RequestBody SearchNewInventory search, HttpServletRequest request, final ModelMap model) {
+    private List<Vehicle> getFormData(@RequestBody SearchNewInventoryModel search, HttpServletRequest request, final ModelMap model) {
 
         List<Vehicle> searchResult = null;
         String minYear = search.getMinYear();
@@ -100,7 +100,7 @@ public class InventoryController {
 
 
     @RequestMapping(value="/Inventory/searchUsedInventory")
-    private List<Vehicle> getUsed(@RequestBody SearchNewInventory search, HttpServletRequest request, final ModelMap model) {
+    private List<Vehicle> getUsed(@RequestBody SearchNewInventoryModel search, HttpServletRequest request, final ModelMap model) {
 
         List<Vehicle> searchResult = null;
         String minYear = search.getMinYear();
@@ -150,7 +150,7 @@ public class InventoryController {
 
 
     @RequestMapping(value="/admin/vehicles")
-    private List<Vehicle> getAllAvailableVehicles(@RequestBody SearchNewInventory search, HttpServletRequest request, final ModelMap model) {
+    private List<Vehicle> getAllAvailableVehicles(@RequestBody SearchNewInventoryModel search, HttpServletRequest request, final ModelMap model) {
 
         List<Vehicle> searchResult = null;
         String minYear = search.getMinYear();

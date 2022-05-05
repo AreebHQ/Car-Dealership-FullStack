@@ -40,28 +40,28 @@ public class VehicleController {
 
     @GetMapping("/vehicleBody")
     public List<Body> vehicleBody() {
-
+        System.out.println("Vehicle Body Called");
         List<Body> allBodies = bodies.findAll();
         return  allBodies;
     }
 
     @GetMapping("/vehicleModel")
     public List<Model> vehicleModel() {
-
+        System.out.println("Vehicle Model Called");
         List<Model> modelList = model.findAll();
         return  modelList;
     }
 
     @GetMapping("/vehicleMake")
     public List<Make> vehicleMake() {
-
+        System.out.println("Vehicle make Called");
         List<Make> makeList = make.findAll();
         return  makeList;
     }
 
     @GetMapping("/vehicleColors")
     public List<Color> vehicleColors() {
-
+        System.out.println("Vehicle Color Called");
         List<Color> colorsList = colors.findAll();
         return  colorsList;
     }

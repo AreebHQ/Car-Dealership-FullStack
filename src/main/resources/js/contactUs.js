@@ -8,6 +8,7 @@ $(document).ready(function () {
 });
 
 
+
 function loadNavigationBar() {
 	
       var navigation = $('#navigation');
@@ -24,13 +25,19 @@ function loadNavigationBar() {
 			 ' <li class="nav-item ">'+
 			 '   <a class="nav-link" href="./usedInventory.html">Used Inventory </a>'+
 			 ' </li>'+
-			  ' <li class="nav-item ">'+
+			  ' <li class="nav-item">'+
 			 '   <a class="nav-link" href="./specials.html">Specials</a>'+
 			 ' </li>'+
-			 ' <li class="nav-item active">'+
+			 	 ' <li class="nav-item active">'+
 			 '   <a class="nav-link" href="./contactUs.html">Contact</a>'+
 			'  </li>'+
-			' <li class="nav-item">'+
+			 	 ' <li class="nav-item">'+
+			 '   <a class="nav-link" href="./sales.html">Sales</a>'+
+			'  </li>'+
+			 	 ' <li class="nav-item">'+
+			 '   <a class="nav-link" href="./admin.html">Admin</a>'+
+			'  </li>'+
+			 ' <li class="nav-item">'+
 			 '   <a class="nav-link disabled">Contact</a>'+
 			'  </li>'+
 		   ' </ul>'+
@@ -39,6 +46,7 @@ function loadNavigationBar() {
 		  
 		navigation.append(navbarDark);
 }
+
 
 
 function addMessage() {

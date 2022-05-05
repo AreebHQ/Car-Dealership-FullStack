@@ -68,7 +68,7 @@ function showVehicleDetail(vehicleId) {
 					'<div class="col-9"><b> Description: &nbsp;&nbsp;</b>'+description+'  </div>'+
 				'<br><br> </div>'+
 				 ' <div class="col-12">'+
-				 ' <a href="#" id="contactUs"  class="btn btn-secondary float-right align-self-baseline" type="submit">Contact Us</a>'+	  
+				 ' <a href="./contactUs.html" id="contactUs"  class="btn btn-secondary float-right align-self-baseline" type="submit">Contact Us</a>'+	  
 					'</div></div></div> ';
 				
 				detailCardTemplate.append(searchDetail);
@@ -245,6 +245,7 @@ function loadSearch() {
 
 
 
+
 function loadNavigationBar() {
 	
       var navigation = $('#navigation');
@@ -269,6 +270,9 @@ function loadNavigationBar() {
 			'  </li>'+
 			 	 ' <li class="nav-item">'+
 			 '   <a class="nav-link" href="./sales.html">Sales</a>'+
+			'  </li>'+
+			 	 ' <li class="nav-item">'+
+			 '   <a class="nav-link" href="./admin.html">Admin</a>'+
 			'  </li>'+
 			 ' <li class="nav-item">'+
 			 '   <a class="nav-link disabled">Contact</a>'+

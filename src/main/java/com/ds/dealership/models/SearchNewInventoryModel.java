@@ -1,13 +1,13 @@
 package com.ds.dealership.models;
 
-public class SearchNewInventory {
+public class SearchNewInventoryModel {
     private String minYear;
     private String maxYear;
     private String minPrice;
     private String maxPrice;
     private String searchInput;
 
-    public SearchNewInventory(String minYear, String maxYear, String minPrice, String maxPrice, String searchInput) {
+    public SearchNewInventoryModel(String minYear, String maxYear, String minPrice, String maxPrice, String searchInput) {
         this.minYear = minYear;
         this.maxYear = maxYear;
         this.minPrice = minPrice;
