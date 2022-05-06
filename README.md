@@ -35,7 +35,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   </div>
 </div>
   
-  <br><br>
+
   <h2> New Inventory </h2>
 <div class="row">
   <div class="column">
@@ -43,7 +43,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   </div>
 </div>
   
-    <br><br>
+  
   <h2> Used Inventory </h2>
 <div class="row">
   <div class="column">
@@ -53,7 +53,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
   
-        <br><br>
+  
   <h2> Vehicle Details </h2>
 <div class="row">
   <div class="column">
@@ -63,7 +63,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
   
-      <br><br>
+ 
   <h2> Specials </h2>
 <div class="row">
   <div class="column">
@@ -72,7 +72,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
 </div>
   
   
-        <br><br>
+    
   <h2> Contact Us </h2>
 <div class="row">
   <div class="column">
@@ -83,7 +83,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
     
-        <br><br>
+     
   <h2> Sales </h2>
 <div class="row">
   <div class="column">
@@ -94,7 +94,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
       
-        <br><br>
+      
   <h2> Purchase Vehicle </h2>
 <div class="row">
   <div class="column">
@@ -103,7 +103,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
 </div>
   
   
-          <br><br>
+      
   <h2> Admin </h2>
 <div class="row">
   <div class="column">
@@ -113,7 +113,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
   
-            <br><br>
+       
   <h2> Add Vehicle </h2>
 <div class="row">
   <div class="column">
@@ -125,7 +125,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
     
-            <br><br>
+           
   <h2> Edit Vehicle </h2>
 <div class="row">
   <div class="column">
