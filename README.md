@@ -135,5 +135,24 @@
 </div>
   
   
+  
+      <br>       
+  <h2> Users </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/sstZBfG/Users.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+
+  
+      <br>       
+  <h2> Add User </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/WxG1qgM/AddUser.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
   </body>
   </html>
