@@ -21,15 +21,9 @@ public class UserController {
     RoleRepository roles;
 
 
-    @GetMapping("/users")
-    public List<User> allUsers() {
-        List<User> allUsers = users.findAll();
-        System.out.println("got users called ====== ");
-        return users.findAll();
-    }
 
 
-    public void addUser()
+   /* public void addUser()
     {
         List<Role> roleList = roles.findAll();
 
@@ -43,5 +37,5 @@ public class UserController {
 
         users.save(user);
 
-    }
+    } */
 }

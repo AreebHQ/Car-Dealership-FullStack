@@ -14,99 +14,46 @@
 
   </head>
   <body>
-  
+    <ul class="list-group" id="errorMessages"></ul>
 	<div class="container" id="addForm">
 	  <div class="row">
 						<div class="col-lg-10">   
 								<div class="form-row">
 								 <div class="col-md-6 form-group">
-								Make:
-								 <div id="makeTemplate"> </div>
-								 </div>
-								 <div class="col-md-6 form-group">
-								Model:
-								<div id="modelTemplate"> </div>
-								  </div>
+									First Name:
+										<input type="text" name="firstName" class="form-control" id="firstName" placeholder="First Name" />
+									</div>
+									<div class="col-md-6 form-group">
+									Last Name:
+										<input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name" />
+									</div>
 								</div>
 								<div class="form-row">
 									<div class="col-md-6 form-group">
-								Type:
-									<select class="form-control" id="type" name="type">
-									<option value="1">New</option>
-									<option value="2">Used</option>
-									</select>
+									Email:
+										<input type="text" name="email" class="form-control" id="email" placeholder="Email" />
 									</div>
-										<div class="col-md-6 form-group">
-								Body Style:
-									<div id="bodyTemplate"> </div>
-									</div>
-								</div>
-							<div class="form-row">
-								<div class="col-md-6 form-group">
-									Year:
-										<input type="text" name="year" class="form-control" id="year" placeholder="Year" />
-									</div>
-										<div class="col-md-6 form-group">
-								Transmission:
-									<select class="form-control" id="transmission" name="transmission">
-									<option value="Automatic">Automatic</option>
-									<option value="Manual">Manual</option> 
-									</select>
-									</div>
+										<div class="col-md-2 form-group">
+									Role:
+										<div id="roleTemplate"> </div>
+										</div>
 								</div>
 							
 								<div class="form-row">
-									<div class="col-md-6 form-group">
-								Color:
-									<div id="colorTemplate"> </div>
+								 <div class="col-md-6 form-group">
+									Password:
+										<input type="text" name="password" class="form-control" id="password" placeholder="Passowrd" />
 									</div>
-										<div class="col-md-6 form-group">
-								Interior:
-									<div id="interiorTemplate"> </div>
+									<div class="col-md-6 form-group">
+									Confirm Password:
+										<input type="text" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm Password" />
 									</div>
 								</div>
-
-								<div class="form-row">
-									<div class="col-md-6 form-group">
-								Mileage:
-										<input type="text" name="mileage" class="form-control" id="mileage" placeholder="mileage" />
-									</div>
-									<div class="col-md-6 form-group">
-								VIN #:
-								 	<input type="text" class="form-control" name="vin" id="vin" placeholder="vin" />
-									</div>
-								</div>
-								
-								<div class="form-row">
-									<div class="col-md-6 form-group">
-								MRSP:
-										<input type="text" name="mrsp" class="form-control" id="mrsp" placeholder="mrsp" />
-									</div>
-									<div class="col-md-6 form-group">
-								Sale Price:
-								 	<input type="text" class="form-control" name="salePrice" id="salePrice" placeholder="salePrice" />
-									</div>
-								</div>
-								<div class="form-group">
-								Description:
-                                <textarea class="form-control" id="description" name="description" placeholder="description"></textarea>
-                                </div>
-								
-
-								<div class="form-row">
-									<div class="col-md-6 form-group">
-									
-									<label class="form-label" for="customFile">Picture: </label>
-									<input type="file" class="form-control" id="customFile" />
-									</div>
-								</div> <br>
 								
 								<button type="submit" onclick="check()" id="addVehicle" class="btn btn-secondary col-2">Save</button>
-		
-							
-		
 
-								</div>
+
+						</div>
 				
 			</div>
 

@@ -1,15 +1,16 @@
 package com.ds.dealership.controllers;
 
+import com.ds.dealership.entities.Role;
+import com.ds.dealership.entities.User;
 import com.ds.dealership.entities.Vehicle;
+import com.ds.dealership.models.UserModel;
 import com.ds.dealership.models.VehicleModel;
 import com.ds.dealership.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @RestController
@@ -33,31 +34,30 @@ public class AdminController {
     @Autowired
     ModelRepository models;
 
+    @Autowired
+    RoleRepository roles;
+
+
+    @GetMapping("/admin/users")
+    public List<User> allUsers() {
+        List<User> allUsers = users.findAll();
+        return allUsers;
+    }
+
+    @GetMapping("/admin/roles")
+    public List<Role> getAllRoles() {
+        List<Role> allRoles = roles.findAll();
+
+        return allRoles;
+    }
+
+
     @PostMapping("/admin/editVehicle/{id}")
     public String editVehicle(@PathVariable("id") Integer id, @RequestBody VehicleModel vehicle , HttpServletRequest request)
     {
 
-
-        System.out.println( "ID: "+ id
-                + "Make: "+ vehicle.getMake()
-                + "Model: "+ vehicle.getModel()
-                + "Type: "+ vehicle.getType()
-                + "Year: "+ vehicle.getYear()
-                + "Transmission: "+ vehicle.getTransmission()
-                + "Body: "+ vehicle.getBody()
-                + "BodyColor: "+ vehicle.getBodyColor()
-                + "InteriorColor: "+ vehicle.getInteriorColor()
-                + "Mileage: "+ vehicle.getMileage()
-                + "MRSP: "+ vehicle.getMrspPrice()
-                + "Sale: "+ vehicle.getSalePrice()
-                + "Description: "+ vehicle.getDescription()
-                + "imageFile: "+ vehicle.getImage()
-
-        );
-
         String []imageName = vehicle.getImage().split("\\\\");
         String imagePath = "../images/" + imageName[imageName.length-1];
-        System.out.println(imagePath);
 
         Vehicle editVehicle = vehicles.getById(id);
         editVehicle.setMake(makes.getById(vehicle.getMake()));
@@ -80,30 +80,37 @@ public class AdminController {
     }
 
 
+    @PostMapping("/admin/deleteVehicle/{id}")
+    public String deleteVehicle(@PathVariable("id") Integer id)
+    {
+       vehicles.deleteById(id);
+        return "success";
+    }
+
+    @PostMapping("/admin/addUser")
+    public String addUser(@RequestBody UserModel user)
+    {
+        User newUser = new User();
+        Role role = roles.getById(user.getRole());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setRole(role);
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+        users.save(newUser);
+
+        return "success";
+    }
+
+
+
     @PostMapping("/admin/addVehicle")
     public String addVehicle(@RequestBody VehicleModel vehicle )
     {
 
 
-        System.out.println( "Make: "+ vehicle.getMake()
-                + "Model: "+ vehicle.getModel()
-                + "Type: "+ vehicle.getType()
-                + "Year: "+ vehicle.getYear()
-                + "Transmission: "+ vehicle.getTransmission()
-                + "Body: "+ vehicle.getBody()
-                + "BodyColor: "+ vehicle.getBodyColor()
-                + "InteriorColor: "+ vehicle.getInteriorColor()
-                + "Mileage: "+ vehicle.getMileage()
-                + "MRSP: "+ vehicle.getMrspPrice()
-                + "Sale: "+ vehicle.getSalePrice()
-                + "Description: "+ vehicle.getDescription()
-                + "imageFile: "+ vehicle.getImage()
-
-        );
-
         String []imageName = vehicle.getImage().split("\\\\");
         String imagePath = "../images/" + imageName[imageName.length-1];
-        System.out.println(imagePath);
 
         Vehicle addVehicle = new Vehicle();
         addVehicle.setMake(makes.getById(vehicle.getMake()));

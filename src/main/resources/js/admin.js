@@ -514,7 +514,34 @@ function editVehicle(vehicleId) {
         })
 
 	});
+	
+	
+	$('#deleteBtn').click(function(){
+		  
+		
+        $.ajax({
+           type: 'POST',
+           url: 'http://localhost:8080/admin/deleteVehicle/'+vehicleId,
+		   contentType : 'application/json; charset=utf-8',
+		   dataType: 'json',
+          
+           success: function() {
+			   
+			   console.log('Vehicle Deleted: ' + vehicleId );
+        
+            location.reload();
+           },
+           error: function () {
+               $('#errorMessages')
+                .append($('<li>')
+                .attr({class: 'list-group-item list-group-item-danger'})
+                .text('Error calling web service. Please try again later.')); 
+           }
+        })
 
+	});
+    
+    location.reload();
 }
 
 
@@ -542,7 +569,7 @@ function gotoEditVehicle(vehicleId) {
 
 
 function addVehicle(){
-	//$('#addBtn').click(function(){
+	
 		  
 		 var make = parseInt(document.getElementById("make").value);
 		 var model = document.getElementById("model").value;
@@ -612,191 +639,14 @@ function addVehicle(){
            }
         })
 
-	//});
+	  location.reload();
 }
 
 
 
 
 
-/*
 
 
 
-function showVehicleForm() {
-  
-	  $('#editBtnTemp').hide();
-	  $('#searchHeaderTemplate').hide(); //hide search header
-	  $('#searchResultTemplate').hide(); //hide search result
-      $('#searchResultHeader').hide(); //hide search result header
-	  $('#addVehicleHeader').show();
-	  $('#addBtnTemp').show();
 
-    var makeFormTemplate = $('#makeTemplate');
-	var makeTemplate = '<select class="form-control" id="make" name="make">';
-	
-	 $.ajax({
-        type: 'GET',
-        url:'http://localhost:8080/vehicleMake',		
-        success: function(allVehicleMake) {        
-		$.each(allVehicleMake, function(index, vehicleMake){	
-			   makeTemplate+='<option value="'+vehicleMake.id+'">'+vehicleMake.name+'</option>';
-            })		
-			 makeFormTemplate.append(makeTemplate);			
-        },
-        error: function() {
-
-        }
-    })				
-	//==========================================================
-	
-	var modelFormTemplate = $('#modelTemplate');
-	var modelTemplate = '<select class="form-control" id="model" name="model">';	
-	 $.ajax({
-        type: 'GET',
-        url:'http://localhost:8080/vehicleModel',		
-        success: function(allVehicleModel) {       
-		$.each(allVehicleModel, function(index, vehicleModel){	
-			   modelTemplate+='<option value="'+vehicleModel.id+'">'+vehicleModel.name+'</option>';
-            })	
-			 modelFormTemplate.append(modelTemplate);		
-        },
-        error: function() {
-        }
-    })
-	//===========================================================
-	
-	var bodyFormTemplate = $('#bodyTemplate');
-	var bodyTemplate = '<select class="form-control" id="body" name="body">';	
-	 $.ajax({
-        type: 'GET',
-        url:'http://localhost:8080/vehicleBody',		
-        success: function(allVehicleBody) {       
-		$.each(allVehicleBody, function(index, vehicleBody){	
-			   bodyTemplate+='<option value="'+vehicleBody.id+'">'+vehicleBody.name+'</option>';
-            })	
-			 bodyFormTemplate.append(bodyTemplate);		
-        },
-        error: function() {
-        }
-    })
-	//===========================================================
-		
-	var colorFormTemplate = $('#colorTemplate');
-	var colorTemplate = '<select class="form-control" id="bodyColor" name="color">';	
-	 $.ajax({
-        type: 'GET',
-        url:'http://localhost:8080/vehicleColors',		
-        success: function(allVehicleColors) {       
-		$.each(allVehicleColors, function(index, vehicleColor){	
-			   colorTemplate+='<option value="'+vehicleColor.id+'">'+vehicleColor.name+'</option>';
-            })	
-			 colorFormTemplate.append(colorTemplate);		
-        },
-        error: function() {
-        }
-    })
-	//===========================================================
-	
-	var interiorFormTemplate = $('#interiorTemplate');
-	var interiorTemplate = '<select class="form-control" id="interiorColor" name="interior">';	
-	 $.ajax({
-        type: 'GET',
-        url:'http://localhost:8080/vehicleColors',		
-        success: function(allVehicleColors) {       
-		$.each(allVehicleColors, function(index, vehicleColor){	
-			   interiorTemplate+='<option value="'+vehicleColor.id+'">'+vehicleColor.name+'</option>';
-            })	
-			 interiorFormTemplate.append(interiorTemplate);		
-        },
-        error: function() {
-        }
-    })
-	
-	  $('#addVehiclesHeader').show();
-	  $('#addForm').show();
-	  
-	  
-	//===========================================================
-	
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 //============================================================================
-	
-    /* var addVehicleCardTemplate = $('#addVehicleTemplate');
-
-		
-
-   $.ajax({
-           type: 'POST',
-		   url:'http://localhost:8080/Inventory/searchUsedInventory',
-            contentType : 'application/json; charset=utf-8',
-			dataType : 'json',
-			 data: JSON.stringify(input),
-           success: function(response) {
-            
-             $('#searchResultTemplate').empty();
-			 var searchCardTemplate = $('#searchResultTemplate');
-			  
-			  $.each(response, function(index, featuredVehicle){
-				var vehicleId = featuredVehicle.id;
-               var year =  featuredVehicle.year;
-                var make =  featuredVehicle.make.name;
-				var model = featuredVehicle.model.name;
-				var salePrice =  '$'+featuredVehicle.salePrice;
-				var MRSP =  '$'+featuredVehicle.mrspPrice;
-                var imageLink = featuredVehicle.image;	
-				var body =  featuredVehicle.body.name;
-			    var transmission =  featuredVehicle.transmission;
-				var color =  featuredVehicle.bodyColor.name;
-				var interior =  featuredVehicle.interiorColor.name;
-				var mileage =  featuredVehicle.mileage;
-				var vin =  featuredVehicle.vinNumber;
-				
-				if(mileage == 0) {mileage = "New";}
-			
-		var searchCard = ' <div class="card"> <div class="row">'+
-				  '<div class="col-3"> <br>'+
-					  '<h5 class="card-title d-flex justify-content-center">'+ year +' '+make+' '+model+'</h5>'+
-					  '<img class="card-img-top" id="image" src="'+imageLink+'" alt="Card image cap"></img>'+
-			 ' </div>'+
-				 ' <div class="col-3"> <br><br><br>'+
-				'<div class="d-flex justify-content-center ">'+
-					'<h6 class="card-title"> <b> Body Style: </b> '+body+' <br><br> '+
-			 	'<b>   Trans: </b>  '+transmission+'<br><br>'+
-					   ' <b>  Color:  </b> '+color+'  </h6> </div>'+
-			 ' </div>'+			  
-					 ' <div class="col-3"> <br><br><br>'+
-					'<div class="d-flex justify-content-center ">'+
-					'<h6 class="card-title"> <b> Interior: </b> '+interior+'  <br><br> '+
-				' 	<b>   Mileage: </b>  '+mileage+' <br><br>'+
-				   ' <b>  VIN#:  </b> '+vin+' </h6> </div>'+
-				'  </div>'+			
-				 ' <div class="col-3">'+		
-		      '<br><br><br>'+
-			'<h5 class="card-title text-right"><b> Sale Price: </b> '+salePrice+' <br><br> <b> MRSP: </b>  '+MRSP+'</h5>'+
-			'<a href="#" class="btn btn-secondary float-right align-self-baseline col-6" type="button" onclick="gotoPurchase(' + vehicleId + ')">Edit</a></div>'+	  
-			'</div> </div>  ';
-	  
-				
-				searchCardTemplate.append(searchCard);
-	
-            })
-        },
-        error: function() {
-             $('#errorMessages')
-                .append($('<li>')
-                .attr({class: 'list-group-item list-group-item-danger'})
-                .text('Error calling web service. Please try again later.'));
-        }
-     })
-}
-*/
