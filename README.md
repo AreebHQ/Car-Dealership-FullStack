@@ -71,7 +71,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   </div>
 </div>
   
-  
+  <br>
     
   <h2> Contact Us </h2>
 <div class="row">
@@ -82,7 +82,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
   
-    
+    <br>
      
   <h2> Sales </h2>
 <div class="row">
@@ -92,7 +92,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
 </div>
   
   
-  
+  <br>
       
       
   <h2> Purchase Vehicle </h2>
@@ -102,7 +102,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   </div>
 </div>
   
-  
+  <br>
       
   <h2> Admin </h2>
 <div class="row">
@@ -112,7 +112,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
 </div>
   
   
-  
+  <br>
        
   <h2> Add Vehicle </h2>
 <div class="row">
@@ -123,7 +123,7 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   
   
   
-  
+  <br>
     
            
   <h2> Edit Vehicle </h2>
