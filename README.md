@@ -113,7 +113,7 @@
 </div>
   
   
-  <br>
+  
        
   <h2> Add Vehicle </h2>
 <div class="row">
@@ -124,7 +124,7 @@
   
   
   
-  <br>
+ 
     
            
   <h2> Edit Vehicle </h2>
@@ -136,7 +136,7 @@
   
   
   
-      <br>       
+           
   <h2> Users </h2>
 <div class="row">
   <div class="column">
@@ -146,7 +146,7 @@
   
 
   
-      <br>       
+             
   <h2> Add User </h2>
 <div class="row">
   <div class="column">
