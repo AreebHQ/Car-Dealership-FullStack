@@ -35,5 +35,104 @@ A full-stack Car Dealership project using Springboot application. Havin JQuery A
   </div>
 </div>
   
+  <br><br>
+  <h2> New Inventory </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/CBsCx15/New-Inventory.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+    <br><br>
+  <h2> Used Inventory </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/myw5Mbw/Used-Inventory.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+  
+        <br><br>
+  <h2> Vehicle Details </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/Q9vFgv4/Details.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+  
+      <br><br>
+  <h2> Specials </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/YfdCs8H/Specials.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+        <br><br>
+  <h2> Contact Us </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/XzS1Shg/Contact-Us.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+  
+    
+        <br><br>
+  <h2> Sales </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/09m2SxD/Sales.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+  
+      
+        <br><br>
+  <h2> Purchase Vehicle </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/h9QXvwV/Purchase.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+          <br><br>
+  <h2> Admin </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/234cYsY/Admin.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+  
+            <br><br>
+  <h2> Add Vehicle </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/wpmWd01/Add-Vehicle.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
+  
+  
+    
+            <br><br>
+  <h2> Edit Vehicle </h2>
+<div class="row">
+  <div class="column">
+    <img src="https://i.ibb.co/tp604pC/Edit-Vehicle.png" alt="SignIn" width="900" height="620">
+  </div>
+</div>
+  
+  
   </body>
   </html>
