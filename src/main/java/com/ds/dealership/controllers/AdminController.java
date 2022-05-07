@@ -56,8 +56,16 @@ public class AdminController {
     public String editVehicle(@PathVariable("id") Integer id, @RequestBody VehicleModel vehicle , HttpServletRequest request)
     {
 
+
+        String imagePath="";
+        if(vehicle.getImage().contains("../images/"))
+        {
+            imagePath = vehicle.getImage();
+
+        } else{
         String []imageName = vehicle.getImage().split("\\\\");
-        String imagePath = "../images/" + imageName[imageName.length-1];
+        imagePath = "../images/" + imageName[imageName.length-1]; }
+
 
         Vehicle editVehicle = vehicles.getById(id);
         editVehicle.setMake(makes.getById(vehicle.getMake()));
@@ -108,9 +116,14 @@ public class AdminController {
     public String addVehicle(@RequestBody VehicleModel vehicle )
     {
 
+        String imagePath="";
+        if(vehicle.getImage().contains("../images/"))
+        {
+            imagePath = vehicle.getImage();
 
-        String []imageName = vehicle.getImage().split("\\\\");
-        String imagePath = "../images/" + imageName[imageName.length-1];
+        } else{
+            String []imageName = vehicle.getImage().split("\\\\");
+            imagePath = "../images/" + imageName[imageName.length-1]; }
 
         Vehicle addVehicle = new Vehicle();
         addVehicle.setMake(makes.getById(vehicle.getMake()));

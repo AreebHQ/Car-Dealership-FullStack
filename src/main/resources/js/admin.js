@@ -7,6 +7,7 @@ $(document).ready(function () {
    $('#addForm').hide();
    $('#addVehicleHeader').hide();
    $('#editVehicleHeader').hide();
+   var imageSrc = '';
 });
 
 
@@ -196,16 +197,19 @@ function loadNavigationBar() {
 			 	 ' <li class="nav-item active">'+
 			 '   <a class="nav-link" href="./admin.html">Admin</a>'+
 			'  </li>'+
-			 ' <li class="nav-item">'+
-			 '   <a class="nav-link disabled">Contact</a>'+
+			 ' <li class="nav-item ">'+
+			 '   <a class="nav-link" href="./users.html">Users</a>'+
 			'  </li>'+
 		   ' </ul>'+
 		 ' </div>'+
 		'</nav>';
 		  
 		navigation.append(navbarDark);
+		
+		/* <li class="nav-item active">'+
+			 '   <a class="nav-link disabled">Users</a>'+
+			'  </li>'+*/
 }
-
 
 
 
@@ -381,6 +385,7 @@ function showHideSearchHeader() {
 
 function setEditFormValues(vehicleId)
 {
+
 	 
 	  $.ajax({
         type: 'GET',
@@ -403,6 +408,7 @@ function setEditFormValues(vehicleId)
 			$("#mrspPrice").val(vehicle.mrspPrice);
 			$("#description").val(vehicle.description);
 			
+			
 			console.log('year: ' + vehicle.year);
 			console.log('make: ' + vehicle.make.id);
 			console.log('model: ' + vehicle.model.id);
@@ -422,27 +428,50 @@ function setEditFormValues(vehicleId)
     })
 }
 
+function getImage(vehicleId)
+{
+	
+	$.ajax({
+        type: 'GET',
+        url:'http://localhost:8080/Inventory/details/'+vehicleId,		
+        success: function(vehicle, status) {    
+			
+			imageSrc = vehicle.image;
 
+        },
+        error: function() {
+        }
+    })
+
+}
 
 function editVehicle(vehicleId) {
-       showVehicleForm();
-	
+     
+	  showVehicleForm();
+
 	  $('#searchHeaderTemplate').hide(); //hide search header
 	  $('#searchResultTemplate').hide(); //hide search result
       $('#searchResultHeader').hide(); //hide search result header
-	  
-
 	  $('#editVehicleHeader').show(); //show edit vehice header
 	 
 	  
 	  $('#addVehicleHeader').hide();
 	  $('#addBtnTemp').hide();
 	  $('#editBtnTemp').show();
-	   setEditFormValues(vehicleId);
-		
+	  setEditFormValues(vehicleId);
+	  getImage(vehicleId);
+		 
 		
 	  $('#editBtn').click(function(){
 		  
+		  
+		var imageFile  = document.getElementById("imageFile").value;
+		 if(imageFile == 'undefined' || imageFile == '')
+		 {
+			 imageFile = imageSrc;
+
+		 }
+		
 		var make = parseInt(document.getElementById("make").value);
 		var model = document.getElementById("model").value;
 		 var type = $('#type').find("option:selected").text();
@@ -456,7 +485,9 @@ function editVehicle(vehicleId) {
 		 var mrspPrice = document.getElementById("mrspPrice").value;
 		 var salePrice =  document.getElementById("salePrice").value;
 		 var description  = document.getElementById("description").value;
-		  var imageFile  = document.getElementById("imageFile").value;
+		 
+		
+		 
 		   console.log('vehicleId: ' + vehicleId );
 			console.log('make: ' + make );
 			console.log('model: ' + model );
@@ -500,10 +531,9 @@ function editVehicle(vehicleId) {
            data: JSON.stringify(input),
           
            success: function() {
+			   location.reload();
 			   
-			   
-        
-            location.reload();
+      
            },
            error: function () {
                $('#errorMessages')
@@ -528,8 +558,8 @@ function editVehicle(vehicleId) {
            success: function() {
 			   
 			   console.log('Vehicle Deleted: ' + vehicleId );
-        
-            location.reload();
+				location.reload();
+    
            },
            error: function () {
                $('#errorMessages')
@@ -540,32 +570,9 @@ function editVehicle(vehicleId) {
         })
 
 	});
-    
-    location.reload();
+  
 }
 
-
-
-
-
-
-
-
-
-function gotoEditVehicle(vehicleId) {
-	
-	  $('#errorMessages').empty();
-	   
-	  $('#addBtnTemp').hide();
-      $('#searchResultTemplate').hide(); //hide search cards
-	  $('#newVehiclesHeader').hide();
-	  $('#editBtnTemp').show();
-	
-     var detailCardTemplate = $('#vehicleDetailTemplate');
-	 var purchaseFormTemplate = $('#purchaseFormTemplate');
-	 
-	
-}
 
 
 function addVehicle(){

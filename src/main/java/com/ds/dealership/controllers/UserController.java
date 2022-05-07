@@ -1,16 +1,14 @@
 package com.ds.dealership.controllers;
 
-import com.ds.dealership.entities.Role;
 import com.ds.dealership.entities.User;
 import com.ds.dealership.repositories.RoleRepository;
 import com.ds.dealership.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -20,7 +18,13 @@ public class UserController {
     @Autowired
     RoleRepository roles;
 
+    @GetMapping("/admin/users/{id}")
+    public Optional<User> getUser(@PathVariable("id") Integer id) {
 
+        Optional<User> user = users.findById(id);
+
+        return user;
+    }
 
 
    /* public void addUser()

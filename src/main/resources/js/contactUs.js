@@ -34,17 +34,21 @@ function loadNavigationBar() {
 			 	 ' <li class="nav-item">'+
 			 '   <a class="nav-link" href="./sales.html">Sales</a>'+
 			'  </li>'+
-			 	 ' <li class="nav-item">'+
+			 	 ' <li class="nav-item ">'+
 			 '   <a class="nav-link" href="./admin.html">Admin</a>'+
 			'  </li>'+
-			 ' <li class="nav-item">'+
-			 '   <a class="nav-link disabled">Contact</a>'+
+			 ' <li class="nav-item ">'+
+			 '   <a class="nav-link" href="./users.html">Users</a>'+
 			'  </li>'+
 		   ' </ul>'+
 		 ' </div>'+
 		'</nav>';
 		  
 		navigation.append(navbarDark);
+		
+		/* <li class="nav-item active">'+
+			 '   <a class="nav-link disabled">Users</a>'+
+			'  </li>'+*/
 }
 
 

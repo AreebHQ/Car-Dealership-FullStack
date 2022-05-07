@@ -350,6 +350,7 @@ function loadSearch() {
 
 
 
+
 function loadNavigationBar() {
 	
       var navigation = $('#navigation');
@@ -357,10 +358,10 @@ function loadNavigationBar() {
 		 var navbarDark =   '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">'+
 		  '<a class="navbar-brand" href="#"> <img src="../images/homeicon.jpeg" alt="Logo" style="width:40px;"></a>'+
 		  ' <ul class="navbar-nav">'+
-			'  <li class="nav-item">'+
+			'  <li class="nav-item ">'+
 			 '   <a class="nav-link" href="./index.html">Home </a>'+
 			'  </li>'+
-			'  <li class="nav-item">'+
+			'  <li class="nav-item ">'+
 			  '  <a class="nav-link" href="./newInventory.html">New Inventory</a>'+
 			 ' </li>'+
 			 ' <li class="nav-item ">'+
@@ -369,23 +370,27 @@ function loadNavigationBar() {
 			  ' <li class="nav-item">'+
 			 '   <a class="nav-link" href="./specials.html">Specials</a>'+
 			 ' </li>'+
-			 	 ' <li class="nav-item">'+
+			 	 ' <li class="nav-item ">'+
 			 '   <a class="nav-link" href="./contactUs.html">Contact</a>'+
 			'  </li>'+
 			 	 ' <li class="nav-item active">'+
 			 '   <a class="nav-link" href="./sales.html">Sales</a>'+
 			'  </li>'+
-			 	 ' <li class="nav-item">'+
+			 	 ' <li class="nav-item ">'+
 			 '   <a class="nav-link" href="./admin.html">Admin</a>'+
 			'  </li>'+
-			 ' <li class="nav-item">'+
-			 '   <a class="nav-link disabled">Contact</a>'+
+			 ' <li class="nav-item ">'+
+			 '   <a class="nav-link" href="./users.html">Users</a>'+
 			'  </li>'+
 		   ' </ul>'+
 		 ' </div>'+
 		'</nav>';
 		  
 		navigation.append(navbarDark);
+		
+		/* <li class="nav-item active">'+
+			 '   <a class="nav-link disabled">Users</a>'+
+			'  </li>'+*/
 }
 
 
