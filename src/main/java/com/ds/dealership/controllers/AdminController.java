@@ -1,8 +1,6 @@
 package com.ds.dealership.controllers;
 
-import com.ds.dealership.entities.Role;
-import com.ds.dealership.entities.User;
-import com.ds.dealership.entities.Vehicle;
+import com.ds.dealership.entities.*;
 import com.ds.dealership.models.UserModel;
 import com.ds.dealership.models.VehicleModel;
 import com.ds.dealership.repositories.*;
@@ -10,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 
@@ -51,6 +52,55 @@ public class AdminController {
         return allRoles;
     }
 
+    @GetMapping("/admin/makes")
+    public List<Make> getAllMakes() {
+       List<Make> makeList = makes.findAll();
+
+        return makeList;
+    }
+
+    @PostMapping("/admin/makes")
+    public String addNewMake(@RequestBody String newMake)
+    {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+        LocalDate currentDate = LocalDate.now();
+        String date = currentDate.format(format);
+
+        Make addMake = new Make();
+        addMake.setName(newMake);
+        addMake.setDate(date);
+        addMake.setUserEmail("hardCOded@email.com");
+        makes.save(addMake);
+
+        return "success";
+    }
+
+
+    @GetMapping("/admin/models")
+    public List<Model> getAllModels() {
+        List<Model> modelsList = models.findAll();
+
+        return modelsList;
+    }
+
+
+    @PostMapping("/admin/models")
+    public String addNewModel(@RequestBody String newModel)
+    {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+        LocalDate currentDate = LocalDate.now();
+        String date = currentDate.format(format);
+        String []modelData = newModel.split("::");
+        Make make = makes.getById(Integer.parseInt(modelData[0]));
+        Model addModel = new Model();
+        addModel.setMake(make);
+        addModel.setName(modelData[1]);
+        addModel.setDate(date);
+        addModel.setUserEmail("hardCOded@email.com");
+        models.save(addModel);
+
+        return "success";
+    }
 
     @PostMapping("/admin/editVehicle/{id}")
     public String editVehicle(@PathVariable("id") Integer id, @RequestBody VehicleModel vehicle , HttpServletRequest request)

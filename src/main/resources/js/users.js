@@ -86,7 +86,7 @@ function addUser()
 			 $('#errorMessages')
                 .append($('<li>')
                 .attr({class: 'list-group-item list-group-item-danger'})
-                .text("Error: Confirm Passowrd can't be empty!"));
+                .text("Error: Confirm Password can't be empty!"));
 		}
 		
 		if(confirmPassword != password){

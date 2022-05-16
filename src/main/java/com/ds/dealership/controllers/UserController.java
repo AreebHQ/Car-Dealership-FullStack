@@ -1,12 +1,11 @@
 package com.ds.dealership.controllers;
 
 import com.ds.dealership.entities.User;
+import com.ds.dealership.models.Password;
 import com.ds.dealership.repositories.RoleRepository;
 import com.ds.dealership.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -24,6 +23,28 @@ public class UserController {
         Optional<User> user = users.findById(id);
 
         return user;
+    }
+
+
+
+    @PostMapping("/account/changepassword")
+    public String deleteVehicle(@RequestBody Password password)
+    {
+        System.out.println("password: "  + password.getPassword() + " Chane pass: " + password.getConfirmPassword());
+
+      /* String currentUserName = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserName = authentication.getName();
+
+        }
+*/
+
+        //get user by name
+      //  User user = users.getById();
+
+
+        return "success";
     }
 
 
