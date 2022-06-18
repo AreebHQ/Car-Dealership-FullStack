@@ -2,7 +2,7 @@ package com.ds.dealership.models;
 
 public class UserModel {
     String firstName;
-    String LastName;
+    String lastName;
     String email;
     String password;
     int role;
@@ -16,11 +16,11 @@ public class UserModel {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+       this.lastName = lastName;
     }
 
     public String getEmail() {

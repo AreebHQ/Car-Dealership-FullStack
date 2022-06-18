@@ -1,7 +1,7 @@
 package com.ds.dealership.models;
 
 public class VehicleModel {
-
+    int id;
     int make;
     int model;
     int body;
@@ -16,6 +16,15 @@ public class VehicleModel {
     String description;
     String year;
     String image;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getImage() {
         return image;
