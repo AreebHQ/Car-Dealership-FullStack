@@ -1,5 +1,8 @@
 package com.ds.dealership;
 
+import com.ds.dealership.entities.User;
+import com.ds.dealership.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +17,9 @@ public class DealershipApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DealershipApplication.class, args);
+
+
+
 	}
 
 	/*@Bean

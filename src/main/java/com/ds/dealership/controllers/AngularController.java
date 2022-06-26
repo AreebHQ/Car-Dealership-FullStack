@@ -54,6 +54,13 @@ public class AngularController {
         return allUsers;
     }
 
+    @PostMapping("/admin/deleteUser")
+    public void deleteUser(@RequestBody Integer userId) {
+        System.out.println("USer ID integer: " + userId);
+        //users.delete(users.getById(userId));
+    }
+
+
     @PostMapping("/admin/addUser")
     public String addUser(@RequestBody UserModel user)
     {

@@ -42,7 +42,14 @@ public class AdminController {
     @GetMapping("/admin/users")
     public List<User> allUsers() {
         List<User> allUsers = users.findAll();
+        getUserByEmail();
         return allUsers;
+    }
+
+    public void getUserByEmail()
+    {
+        User user = users.findByEmail("Adam@gmail.com");
+        System.out.println(user.getFirstName() + " " + user.getLastName());
     }
 
     @GetMapping("/admin/roles")
