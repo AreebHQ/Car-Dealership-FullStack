@@ -2,19 +2,15 @@
 CREATE DATABASE dealership;*/
 USE dealership;
 
+select * from user join role on user.role = role.role_id;
+update vehicle set type = "New" where vehicle_id = 5;
+delete from vehicle where vehicle_id = 5;
+SELECT * FROM vehicle WHERE mileage = 0 AND sold = false;
+SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join
+ model md on md.model_id = v.model WHERE v.mileage = 0 
+AND year BETWEEN 0 AND 9999 AND sale_price BETWEEN 0 AND 999999 AND m.name = "supra"  OR md.name =  "supra" AND v.sold = false;
 
-
-
-
-
-
-
-
-SELECT md.name, m.name, v.* FROM Vehicle v join make m on m.make_id = v.make join model md on md.model_id = v.model WHERE v.mileage = 0 
-and year between 2018 and 2025 and sale_price between 0 and 30000 and m.name = "" or md.name = "" ;
-
-
-
+select * from message;
 select * from user;
 select * from vehicle;
 select * from make;
@@ -23,7 +19,7 @@ select * from role;
 select * from body;
 select * from purchase;
 select * from purchase_type;
-select * from special;
+select * from specials;
 select * from color;
 ...;
 /*DROP TABLE IF EXISTS vehicle;*/
@@ -54,10 +50,16 @@ foreign key (interior_color) references color(color_id)
 
 select * from vehicle;
 select DISTINCT year from vehicle;
+alter table vehicle modify column type varchar(15);
 
-update vehicle set image = "../images/car1.jpg" where vehicle_id = 5;
-update vehicle set image = "../images/car2.jpg" where vehicle_id = 2;
-update vehicle set image = "../images/car3.jpg" where vehicle_id = 3;
+
+update vehicle set description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor gestas. Hac habitasse platea dictumst quisque sagittis. Dui nunc mattis enim ut tellus elementum sagittis. Nam aliquam sem et tortor consequat id. Lacus vel facilisis volutpat est velit egestas dui id. Consequat interdum varius sit amet mattis vulputate enim nulla. Felis donec et odio pellentesque. Lorem mollis aliquam ut porttitor leo a. Sodales ut et"
+ where vehicle_id = 8;
+
+
+
+update vehicle set image = "../images/car3.jpg" where vehicle_id = 2;
+update vehicle set image = "../images/car2.jpg" where vehicle_id = 3;
 update vehicle set image = "../images/car4.jpg" where vehicle_id = 4;
 update vehicle set image = "../images/car5.jpg" where vehicle_id = 6;
 update vehicle set image = "../images/car6.jpg" where vehicle_id = 7;
@@ -78,7 +80,7 @@ VALUES (2,2,2,2,"2021","Manual",3,4,31000,"1ZPSL65848Z418888",32000,30000,"An ok
 
 INSERT INTO vehicle(make,model,type,body,year,transmission,body_color,interior_color,mileage,vin_number,mrsp_price,
 sale_price,description,image,featured,sold)
-VALUES (3,3,3,3,"2022","Automatic",5,6,5000,"9JKSL65848Z418777",33000,29000,"Another good car","",false,false);
+VALUES (3,3,1,3,"2022","Automatic",5,6,5000,"9JKSL65848Z418777",33000,29000,"Another good car","",false,false);
 
 INSERT INTO vehicle(make,model,type,body,year,transmission,body_color,interior_color,mileage,vin_number,mrsp_price,
 sale_price,description,image,featured,sold)
@@ -130,7 +132,7 @@ foreign key (role) references role(role_id)
 
 select * from user;
 INSERT INTO user(first_name,last_name,email,role,password) VALUES("Adam", "Smith","Adam@gmail.com",2,"Adam123");
-INSERT INTO user(first_name,last_name,email,role,password) VALUES("John", "Cena","Cena@gmail.com",2,"Cena123");
+INSERT INTO user(first_name,last_name,email,role,password) VALUES("Test", "TestLast","test@gmail.com","Admin","test123");
 INSERT INTO user(first_name,last_name,email,role,password) VALUES("Jennifer", "Lopez","Jennifer@gmail.com",1,"Jennifer123");
 
 DROP TABLE IF EXISTS make;
@@ -179,6 +181,7 @@ INSERT INTO color(name) VALUES ("White");
 INSERT INTO color(name) VALUES ("Grey");
 INSERT INTO color(name) VALUES ("Blue");
 INSERT INTO color(name) VALUES ("Red");
+INSERT INTO color(name) VALUES ("Green");
 
 DROP TABLE IF EXISTS body;
 CREATE TABLE body (
@@ -191,55 +194,45 @@ INSERT INTO body(name) VALUES ("Sedan");
 INSERT INTO body(name) VALUES ("Cope");
 
 
-DROP TABLE IF EXISTS purchase_type;
-CREATE TABLE purchase_type (
-type_id int primary key auto_increment,
-name varchar(50)
-);
-
-select * from purchase_type;
-INSERT INTO purchase_type(name) VALUES ("Bank Finance");
-INSERT INTO purchase_type(name) VALUES ("Cash");
-INSERT INTO purchase_type(name) VALUES ("Dealer Finance");
 
 DROP TABLE IF EXISTS purchase;
 CREATE TABLE purchase (
 purchase_id int primary key auto_increment,
 vehicle_id int,
-first_name varchar(50),
-last_name varchar(50),
+name varchar(50),
 email varchar(50),
 street varchar(50),
 city varchar(50),
 state varchar(50),
 zip varchar(5),
-price double,
-purchase_type int,
+price int,
+purchase_type varchar(20),
 user_id int,
 foreign key (vehicle_id) references vehicle (vehicle_id),
-foreign key (user_id) references user(user_id),
-foreign key (purchase_type) references purchase_type(type_id)
+foreign key (user_id) references user(user_id)
 );
 
-select * from purchase;
+alter table purchase drop foreign key purchase_type;
 
-INSERT INTO purchase(first_name,last_name,email,street,city,state,zip,price,purchase_type,user_id)
- VALUES (5,"Morgan","Freeman","Freeman@gmail.com","22 Best Street", "Best City","New York","11220",32000,1,1);
+select * from vehicle;
+
+INSERT INTO purchase(vehicle_id,name,email,street,city,state,zip,price,purchase_type,user_id)
+ VALUES (5,"Morgan Freeman","Freeman@gmail.com","22 Best Street", "Best City","New York","11220",32000,1,1);
  
-INSERT INTO purchase(vehicle_id,first_name,last_name,email,street,city,state,zip,price,purchase_type,user_id)
- VALUES (2,"Smith","Johnson","Smith@gmail.com","66 Street", "Another City","New Jersey","99999",28000,2,2);
+INSERT INTO purchase(vehicle_id,name,email,street,city,state,zip,price,purchase_type,user_id)
+ VALUES (2,"Smith Johnson","Smith@gmail.com","66 Street", "Another City","New Jersey","99999",28000,2,2);
  
- INSERT INTO purchase(vehicle_id,first_name,last_name,email,street,city,state,zip,price,purchase_type,user_id)
- VALUES (3,"Johnny","Bravo","Bravo@gmail.com","90 Street", "New City","Texas","22222",25000,3,3);
+INSERT INTO purchase(vehicle_id,name,email,street,city,state,zip,price,purchase_type,user_id)
+ VALUES (3,"Johnny Bravo","Bravo@gmail.com","90 Street", "New City","Texas","22222",25000,3,1);
  
-  INSERT INTO purchase(vehicle_id,first_name,last_name,email,street,city,state,zip,price,purchase_type,user_id)
- VALUES (4,"Khan","Jack","Khan@gmail.com","115 Street", "Lost City","Florida","66666",18000,1,4);
+INSERT INTO purchase(vehicle_id,name,email,street,city,state,zip,price,purchase_type,user_id)
+ VALUES (4,"Khan Jack","Khan@gmail.com","115 Street", "Lost City","Florida","66666",18000,1,2);
  
-   INSERT INTO purchase(vehicle_id,first_name,last_name,email,street,city,state,zip,price,purchase_type,user_id)
- VALUES (1,"Jack","Sparrow","Sparrow@gmail.com","404 Street", "Found City","Arizona","77777",17500,2,1);
+ INSERT INTO purchase(vehicle_id,name,email,street,city,state,zip,price,purchase_type,user_id)
+ VALUES (6,"Jack Sparrow","Sparrow@gmail.com","404 Street", "Found City","Arizona","77777",17500,2,1);
  
-   INSERT INTO purchase(vehicle_id,first_name,last_name,email,street,city,state,zip,price,purchase_type,user_id)
- VALUES (2,"James","Bond","Bond@gmail.com","Secret Street", "Suspecious City","New York","88888",35600,3,2);
+ INSERT INTO purchase(vehicle_id,name,email,street,city,state,zip,price,purchase_type,user_id)
+ VALUES (2,"James Bond","Bond@gmail.com","Secret Street", "Suspecious City","New York","88888",35600,3,2);
 
 update purchase set vehicle_id = 4 where purchase_id = 8;
 
@@ -267,8 +260,8 @@ foreign key (model_id) references model(model_id)
 );
 
 
-DROP TABLE IF EXISTS special;
-CREATE TABLE special (
+DROP TABLE IF EXISTS specials;
+CREATE TABLE specials (
 special_id int primary key auto_increment,
 title varchar(50),
 description varchar(500)
@@ -278,3 +271,28 @@ INSERT INTO special(title,description) VALUES ("Deal One","Spring Car Sale - Lor
 INSERT INTO special(title,description) VALUES ("Deal Two","Winter Car Sale - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ");
 INSERT INTO special(title,description) VALUES ("Deal Three","Summer Car Sale - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ");
 INSERT INTO special(title,description) VALUES ("Deal Four","Autumn Car Sale - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ");
+
+
+DROP TABLE IF EXISTS message;
+CREATE TABLE message(
+message_id int primary key auto_increment,
+name varchar(50),
+email varchar(50),
+phone varchar(15),
+subject varchar(100),
+message_body varchar(5000)
+
+);
+
+
+DROP TABLE IF EXISTS purchase_type;
+CREATE TABLE purchase_type (
+type_id int primary key auto_increment,
+name varchar(50)
+);
+
+select * from purchase_type;
+INSERT INTO purchase_type(name) VALUES ("Bank Finance");
+INSERT INTO purchase_type(name) VALUES ("Cash");
+INSERT INTO purchase_type(name) VALUES ("Dealer Finance");
+
