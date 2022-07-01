@@ -17,8 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/angular")
-@RestController
+//@RequestMapping("/angular")
+//@RestController
 public class AngularController {
     @Autowired
     VehicleRepository vehicles;

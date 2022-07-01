@@ -1,10 +1,12 @@
 package com.ds.dealership.controllers;
 
 import com.ds.dealership.entities.*;
+import com.ds.dealership.models.SearchNewInventoryModel;
 import com.ds.dealership.models.UserModel;
 import com.ds.dealership.models.VehicleModel;
 import com.ds.dealership.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +14,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
-@RestController
+@RestController("/admin")
 public class AdminController {
 
     @Autowired
@@ -39,34 +42,66 @@ public class AdminController {
     RoleRepository roles;
 
 
-    @GetMapping("/admin/users")
+    // ============================================================
+    //              User
+    // ============================================================
+
+    @GetMapping("/users")
     public List<User> allUsers() {
         List<User> allUsers = users.findAll();
-        getUserByEmail();
         return allUsers;
     }
 
-    public void getUserByEmail()
+    @PostMapping("/deleteUser")
+    public void deleteUser(@RequestBody Integer userId) {
+        System.out.println("USer ID integer: " + userId);
+        //users.delete(users.getById(userId));
+    }
+
+
+    @PostMapping("/addUser")
+    public String addUser(@RequestBody UserModel user)
     {
-        User user = users.findByEmail("Adam@gmail.com");
-        System.out.println(user.getFirstName() + " " + user.getLastName());
+        User newUser = new User();
+        Role role = roles.getById(user.getRole());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setRole(role);
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+
+        users.save(newUser);
+
+        return "success";
     }
 
-    @GetMapping("/admin/roles")
-    public List<Role> getAllRoles() {
-        List<Role> allRoles = roles.findAll();
 
-        return allRoles;
+    // ============================================================
+    //              Admin
+    // ============================================================
+
+  /*  @GetMapping("/vehicleColors")
+    public List<Color> vehicleColors() {
+        List<Color> colorsList = colors.findAll();
+        return  colorsList;
+    }
+ */
+    @GetMapping("/vehicleBodies")
+    public List<Body> vehicleBody() {
+
+        List<Body> allBodies = bodies.findAll();
+        return  allBodies;
     }
 
-    @GetMapping("/admin/makes")
+    @GetMapping("/makes")
     public List<Make> getAllMakes() {
-       List<Make> makeList = makes.findAll();
+
+        List<Make> makeList = makes.findAll();
 
         return makeList;
     }
 
-    @PostMapping("/admin/makes")
+    @PostMapping("/makes")
     public String addNewMake(@RequestBody String newMake)
     {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/YYYY");
@@ -83,7 +118,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/admin/models")
+    @GetMapping("/models")
     public List<Model> getAllModels() {
         List<Model> modelsList = models.findAll();
 
@@ -91,7 +126,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/admin/models")
+    @PostMapping("/models")
     public String addNewModel(@RequestBody String newModel)
     {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/YYYY");
@@ -109,8 +144,15 @@ public class AdminController {
         return "success";
     }
 
-    @PostMapping("/admin/editVehicle/{id}")
-    public String editVehicle(@PathVariable("id") Integer id, @RequestBody VehicleModel vehicle , HttpServletRequest request)
+
+
+    // ============================================================
+    //              Vehicle
+    // ============================================================
+
+
+    @PostMapping("/editVehicle")
+    public String editVehicle(@RequestBody VehicleModel vehicle , HttpServletRequest request)
     {
 
 
@@ -120,11 +162,11 @@ public class AdminController {
             imagePath = vehicle.getImage();
 
         } else{
-        String []imageName = vehicle.getImage().split("\\\\");
-        imagePath = "../images/" + imageName[imageName.length-1]; }
+            String []imageName = vehicle.getImage().split("\\\\");
+            imagePath = "../images/" + imageName[imageName.length-1]; }
 
 
-        Vehicle editVehicle = vehicles.getById(id);
+        Vehicle editVehicle = vehicles.getById(vehicle.getId());
         editVehicle.setMake(makes.getById(vehicle.getMake()));
         editVehicle.setModel(models.getById(vehicle.getModel()));
         editVehicle.setType(vehicle.getType());
@@ -145,42 +187,41 @@ public class AdminController {
     }
 
 
-    @PostMapping("/admin/deleteVehicle/{id}")
-    public String deleteVehicle(@PathVariable("id") Integer id)
-    {
-       vehicles.deleteById(id);
-        return "success";
-    }
-
-    @PostMapping("/admin/addUser")
-    public String addUser(@RequestBody UserModel user)
-    {
-        User newUser = new User();
-        Role role = roles.getById(user.getRole());
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setRole(role);
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(user.getPassword());
-        users.save(newUser);
-
-        return "success";
-    }
-
-
-
-    @PostMapping("/admin/addVehicle")
+    @PostMapping("/addVehicle")
     public String addVehicle(@RequestBody VehicleModel vehicle )
     {
+        System.out.println(vehicle.getId());
+        System.out.println(vehicle.getMake());
+        System.out.println(vehicle.getModel());
+        System.out.println(vehicle.getBody());
+        System.out.println(vehicle.getType());
+        System.out.println(vehicle.getBodyColor());
+        System.out.println(vehicle.getInteriorColor());
+        System.out.println(vehicle.getYear());
+        System.out.println(vehicle.getMileage());
+        System.out.println(vehicle.getMrspPrice());
+        System.out.println(vehicle.getSalePrice());
+        System.out.println(vehicle.getTransmission());
+        System.out.println(vehicle.getVinNumber());
+        System.out.println(vehicle.getDescription());
+        System.out.println(vehicle.getImage());
 
         String imagePath="";
-        if(vehicle.getImage().contains("../images/"))
+        if(vehicle.getImage().isEmpty() || vehicle.getImage().isBlank())
         {
-            imagePath = vehicle.getImage();
+            imagePath = "../images/defaultcar.jpeg";
+        }
+        else {
 
-        } else{
-            String []imageName = vehicle.getImage().split("\\\\");
-            imagePath = "../images/" + imageName[imageName.length-1]; }
+            if(vehicle.getImage().contains("../images/"))
+            {
+                imagePath = vehicle.getImage();
+
+            } else{
+                String []imageName = vehicle.getImage().split("\\\\");
+                imagePath = "../images/" + imageName[imageName.length-1]; }
+        }
+
 
         Vehicle addVehicle = new Vehicle();
         addVehicle.setMake(makes.getById(vehicle.getMake()));
@@ -201,4 +242,63 @@ public class AdminController {
 
         return "success";
     }
+
+    @PostMapping("/deleteVehicle/{id}")
+    public String deleteVehicle(@PathVariable("id") Integer id)
+    {
+        vehicles.deleteById(id);
+        return "success";
+    }
+
+
+    @RequestMapping(value="/vehicles")
+    private List<Vehicle> getAllAvailableVehicles(@RequestBody SearchNewInventoryModel search, HttpServletRequest request, final ModelMap model) {
+
+        List<Vehicle> searchResult = null;
+        String minYear = search.getMinYear();
+        String maxYear = search.getMaxYear();
+        String minPrice = search.getMinPrice();
+        String maxPrice = search.getMaxPrice();
+        String searchBar = search.getSearchInput();
+        String carMake = searchBar;
+        String carModel = "";
+        if(searchBar.split("-").length > 1)
+        {String []searchInput = searchBar.split("-");
+            carMake = searchInput[0];
+            carModel = searchInput[1];
+        }
+
+
+        if(minYear.equals("Min"))
+        {
+            minYear = "0";
+        }
+        if(minPrice.equals("Min"))
+        {
+            minPrice = "0";
+        }
+
+        if(maxYear.equals("2020+") || maxYear.equals("Max"))
+        {
+            maxYear = "9999";
+        }
+        if(maxPrice.equals("25+") || maxPrice.equals("Max"))
+        {
+            maxPrice= "999999";
+
+        }
+
+
+        if(searchBar.isEmpty() || searchBar.isBlank())
+        {
+            searchResult = vehicles.findAvailableBySearchInput(minYear,maxYear,minPrice,maxPrice);
+        } else {
+            searchResult = vehicles.findAvailableBySearchInput(minYear,maxYear,minPrice,maxPrice,carMake,carModel);
+        }
+
+        return  searchResult;
+
+    }
+
+
 }
