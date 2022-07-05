@@ -16,8 +16,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-
-@RestController("/admin")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
