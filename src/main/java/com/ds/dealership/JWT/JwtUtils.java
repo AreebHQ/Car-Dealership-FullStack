@@ -34,6 +34,9 @@ public class JwtUtils {
 
 
     public boolean validateJwtToken(String authToken) throws SignatureException {
+
+        System.out.println("Jason Auth Token from frontEnd : " + authToken);
+
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;

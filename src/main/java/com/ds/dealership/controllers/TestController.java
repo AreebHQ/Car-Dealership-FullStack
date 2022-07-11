@@ -20,7 +20,7 @@ public class TestController {
     public String userAccess() {
         return "User Content.";
     }
-    @GetMapping("/Sales")
+    @GetMapping("/sales")
     @PreAuthorize("hasAuthority('Sales') or hasAuthority('Admin')")
     public String moderatorAccess() {
         return "Sales Board.";

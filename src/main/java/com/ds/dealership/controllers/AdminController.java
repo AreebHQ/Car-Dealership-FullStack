@@ -8,26 +8,21 @@ import com.ds.dealership.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired
     VehicleRepository vehicles;
     @Autowired
     UserRepository users;
-
-    @Autowired
-    PurchaseRepository purchases;
 
     @Autowired
     BodyRepository bodies;
@@ -76,32 +71,6 @@ public class AdminController {
         return "success";
     }
 
-
-    // ============================================================
-    //              Admin
-    // ============================================================
-
-  /*  @GetMapping("/vehicleColors")
-    public List<Color> vehicleColors() {
-        List<Color> colorsList = colors.findAll();
-        return  colorsList;
-    }
- */
-    @GetMapping("/vehicleBodies")
-    public List<Body> vehicleBody() {
-
-        List<Body> allBodies = bodies.findAll();
-        return  allBodies;
-    }
-
-    @GetMapping("/makes")
-    public List<Make> getAllMakes() {
-
-        List<Make> makeList = makes.findAll();
-
-        return makeList;
-    }
-
     @PostMapping("/makes")
     public String addNewMake(@RequestBody String newMake)
     {
@@ -116,14 +85,6 @@ public class AdminController {
         makes.save(addMake);
 
         return "success";
-    }
-
-
-    @GetMapping("/models")
-    public List<Model> getAllModels() {
-        List<Model> modelsList = models.findAll();
-
-        return modelsList;
     }
 
 

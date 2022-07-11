@@ -1,17 +1,17 @@
 package com.ds.dealership.controllers;
 
-import com.ds.dealership.entities.Purchase;
-import com.ds.dealership.entities.User;
-import com.ds.dealership.entities.Vehicle;
+import com.ds.dealership.entities.*;
 import com.ds.dealership.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController("/sales")
+@RestController
+@RequestMapping("/api/sales")
 public class SalesController {
 
 
@@ -30,9 +30,9 @@ public class SalesController {
     @Autowired
     ColorRepository colors;
     @Autowired
-    MakeRepository make;
+    MakeRepository makes;
     @Autowired
-    ModelRepository model;
+    ModelRepository models;
 
     @PostMapping("/purchase/{id}")
     public String savePurchasedVehicle(@PathVariable("id") Integer id, @RequestBody Purchase purchase)
@@ -48,12 +48,44 @@ public class SalesController {
         return "success";
     }
 
-
+    @PreAuthorize("hasAuthority('Sales') or hasAuthority('Admin')")
     @GetMapping("/index")
     public List<Vehicle> allVehicles() {
 
+        System.out.println("sales/index called");
         List<Vehicle> allVehicles = vehicles.findAllAvailable();
         return  allVehicles;
+    }
+
+
+    @GetMapping("/models")
+    public List<Model> getAllModels() {
+        List<Model> modelsList = models.findAll();
+
+        return modelsList;
+    }
+
+
+    @GetMapping("/makes")
+    public List<Make> getAllMakes() {
+
+        List<Make> makeList = makes.findAll();
+
+        return makeList;
+    }
+
+      @GetMapping("/vehicleColors")
+    public List<Color> vehicleColors() {
+        List<Color> colorsList = colors.findAll();
+        return  colorsList;
+    }
+
+
+    @GetMapping("/vehicleBodies")
+    public List<Body> vehicleBody() {
+
+        List<Body> allBodies = bodies.findAll();
+        return  allBodies;
     }
 
 }

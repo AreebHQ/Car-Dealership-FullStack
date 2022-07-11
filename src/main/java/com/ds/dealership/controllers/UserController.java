@@ -5,6 +5,7 @@ import com.ds.dealership.models.Password;
 import com.ds.dealership.models.SearchNewInventoryModel;
 import com.ds.dealership.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
+@RequestMapping("/api/")
 public class UserController {
 
-    @Autowired
-    UserRepository users;
-    @Autowired
-    RoleRepository roles;
     @Autowired
     VehicleRepository vehicles;
     @Autowired
@@ -37,14 +36,14 @@ public class UserController {
     @Autowired
     MessageRepository messages;
 
-    @GetMapping("Inventory/new")
+    @GetMapping("inventory/new")
     public List<Vehicle> newVehicles() {
 
         List<Vehicle> allNew = vehicles.findAllNew();
         return  allNew;
     }
 
-    @GetMapping("Inventory/used")
+    @GetMapping("inventory/used")
     public List<Vehicle> usedVehicles() {
 
         List<Vehicle> allUsed = vehicles.findAllUsed();
@@ -119,7 +118,7 @@ public class UserController {
         return allMessages;
     }
 
-    @GetMapping("/Inventory/details/{id}")
+    @GetMapping("/inventory/details/{id}")
     public Optional<Vehicle> vehicleDetail(@PathVariable("id") Integer id) {
 
         Optional<Vehicle> vehicle = vehicles.findById(id);
@@ -127,7 +126,7 @@ public class UserController {
         return  vehicle;
     }
 
-    @RequestMapping(value="/Inventory/searchNewInventory")
+    @RequestMapping(value="/inventory/searchNewInventory")
     private List<Vehicle> getFormData(@RequestBody SearchNewInventoryModel search, HttpServletRequest request, final ModelMap model) {
 
         List<Vehicle> searchResult = null;
@@ -177,7 +176,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value="/Inventory/searchUsedInventory")
+    @RequestMapping(value="/inventory/searchUsedInventory")
     private List<Vehicle> getUsed(@RequestBody SearchNewInventoryModel search, HttpServletRequest request, final ModelMap model) {
 
         List<Vehicle> searchResult = null;
