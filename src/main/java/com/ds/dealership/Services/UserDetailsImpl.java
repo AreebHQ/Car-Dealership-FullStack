@@ -1,6 +1,6 @@
 package com.ds.dealership.Services;
 
-import com.ds.dealership.entities.User;
+import com.ds.dealership.Entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
