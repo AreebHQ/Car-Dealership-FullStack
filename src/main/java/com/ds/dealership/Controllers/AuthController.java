@@ -2,7 +2,7 @@ package com.ds.dealership.Controllers;
 
 import com.ds.dealership.JWT.JwtResponse;
 import com.ds.dealership.JWT.JwtUtils;
-import com.ds.dealership.Services.UserDetailsImpl;
+import com.ds.dealership.UserLoginServices.UserDetailsImpl;
 import com.ds.dealership.Entities.Role;
 import com.ds.dealership.Entities.User;
 import com.ds.dealership.Models.LoginRequest;

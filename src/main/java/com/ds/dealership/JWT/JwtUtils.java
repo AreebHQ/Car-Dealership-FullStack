@@ -1,6 +1,6 @@
 package com.ds.dealership.JWT;
 
-import com.ds.dealership.Services.UserDetailsImpl;
+import com.ds.dealership.UserLoginServices.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

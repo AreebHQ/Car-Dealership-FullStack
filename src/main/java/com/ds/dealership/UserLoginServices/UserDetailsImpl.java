@@ -1,4 +1,4 @@
-package com.ds.dealership.Services;
+package com.ds.dealership.UserLoginServices;
 
 import com.ds.dealership.Entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,31 +19,8 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     @JsonIgnore
     private String password;
-   // private Collection<? extends GrantedAuthority> authorities;
-
     private List<SimpleGrantedAuthority> authorities;
 
-  /*  public UserDetailsImpl(String id, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = email;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
-    }
-
-
-
-    public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = Arrays.stream(user.getRole().getRoleName().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-        return new UserDetailsImpl(
-                String.valueOf(user.getId()),
-                user.getEmail(),
-                user.getPassword(),
-                authorities);
-    }*/
 
     public UserDetailsImpl(String id, String email, String password,
                            List<SimpleGrantedAuthority> authorities) {

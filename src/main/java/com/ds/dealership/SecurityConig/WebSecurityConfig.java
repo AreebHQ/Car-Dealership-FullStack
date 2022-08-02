@@ -2,7 +2,7 @@ package com.ds.dealership.SecurityConig;
 
 import com.ds.dealership.JWT.AuthEntryPointJwt;
 import com.ds.dealership.JWT.AuthTokenFilter;
-import com.ds.dealership.Services.UserDetailsServiceImpl;
+import com.ds.dealership.UserLoginServices.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

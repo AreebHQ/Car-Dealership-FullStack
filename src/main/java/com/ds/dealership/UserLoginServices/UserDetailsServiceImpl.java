@@ -1,4 +1,4 @@
-package com.ds.dealership.Services;
+package com.ds.dealership.UserLoginServices;
 
 import com.ds.dealership.Entities.User;
 import com.ds.dealership.Repositories.UserRepository;
@@ -16,9 +16,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //email == username
-
-        System.out.println("load by username method : " + username);
 
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
