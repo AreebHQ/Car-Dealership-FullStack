@@ -152,7 +152,7 @@
   <div class="column">
    
   
-      <img src="[https://githubprojects.s3.amazonaws.com/AddUser.png](https://githubprojects.s3.amazonaws.com/AddUser.png)" alt="SignIn" width="900" height="620">
+      <img src="https://githubprojects.s3.amazonaws.com/AddUser.png" alt="SignIn" width="900" height="620">
 
   </div>
 </div>
